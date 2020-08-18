@@ -80,6 +80,42 @@ import CreateMap from './map';
         }
     }
 
+    function trainingRenderId5 (){
+        //угол
+        let cx = xSteep/2;
+        let cy = ySteep/2;
+        let divisionSizeY = cy/4; 
+        let divisionSizeX = cx/4;
+
+        return (x, y)=>{
+            context.strokeStyle = '#1b1bcd';
+            context.lineWidth = 2;
+            context.moveTo(x+cx-divisionSizeX, y);
+            context.quadraticCurveTo(x+cx-divisionSizeX, y+cy-divisionSizeY, x, y+cy-divisionSizeY);
+            context.moveTo(x+cx+divisionSizeX, y);
+            context.quadraticCurveTo(x+cx+divisionSizeX, y+cy+divisionSizeY, x, y+cy+divisionSizeY);
+            context.stroke();
+            context.lineWidth = 1;
+        }
+    }
+    function trainingRenderId6 (){
+        //угол
+        let cx = xSteep/2;
+        let cy = ySteep/2;
+        let divisionSizeY = cy/4; 
+        let divisionSizeX = cx/4;
+
+        return (x, y)=>{
+            context.strokeStyle = '#1b1bcd';
+            context.lineWidth = 2;
+            context.moveTo(x+cx-divisionSizeX, y);
+            context.quadraticCurveTo(x+cx-divisionSizeX, y+cy-divisionSizeY, x, y+cy-divisionSizeY);
+            // context.moveTo(x+cx+divisionSizeX, y);
+            // context.quadraticCurveTo(x+cx+divisionSizeX, y+cy+divisionSizeY, x, y+cy+divisionSizeY);
+            context.stroke();
+            context.lineWidth = 1;
+        }
+    }
 
 
     function renderMap (){
@@ -87,9 +123,13 @@ import CreateMap from './map';
         let renderId2 = trainingRenderId2();
         let renderId3 = trainingRenderId3();
         let renderId4 = trainingRenderId4();
+        let renderId5 = trainingRenderId5();
+        let renderId6 = trainingRenderId6();
         
         gameMap.map((elRow, ir)=>{
             elRow.map((elCol, ic)=>{
+                let x = xSteep*ic;
+                let y = ySteep*ir;
                 // if(elCol !== 1){
                 //     context.beginPath();
                 //     context.strokeStyle = '#fff';
@@ -99,13 +139,17 @@ import CreateMap from './map';
                 context.beginPath();
                 switch(elCol){
                     case 1:
-                        return renderId1(xSteep*ic, ySteep*ir);
+                        return renderId1(x, y);
                     case 2:
-                        return renderId2(xSteep*ic, ySteep*ir)
+                        return renderId2(x, y)
                     case 3:
-                        return renderId3(xSteep*ic, ySteep*ir)
+                        return renderId3(x, y)
                     case 4:
-                        return renderId4(xSteep*ic, ySteep*ir)
+                        return renderId4(x, y)
+                    case 5:
+                        return renderId5(x, y)
+                    case 6:
+                        return renderId6(x, y)    
                 }
 
 
