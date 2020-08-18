@@ -117,6 +117,37 @@ import CreateMap from './map';
         }
     }
 
+    function trainingDubleAngle (){
+        //угол
+        let cx = xSteep/2;
+        let cy = ySteep/2;
+        let dy = cy/4; 
+        let dx = cx/4;
+        return (x, y, r, c) => {
+            let params = [];
+
+            context.strokeStyle = '#1b1bcd';
+            context.lineWidth = 2;
+
+            if(r != 0 && (gameMap[r-1][c] === 2 || gameMap[r-1][c] === 4)) params.push([x+cx, y]);
+            if(r+1 != gameMap.length && (gameMap[r+1][c] === 2 || gameMap[r+1][c] === 4)) params.push([x+cx, y+ySteep]);
+            if(c != 0 && (gameMap[r][c-1] === 2 || gameMap[r][c-1] === 4)) params.push([x, y+cy]);
+            if(c+1 != gameMap[r].length && (gameMap[r][c+1] === 2 || gameMap[r][c+1] === 4)) params.push([x+xSteep, y+cy]);
+
+            let s = params[0], e = params[1];
+            let sx = s[0], sy = s[1], ex = e[0], ey = e[1];
+            for (let i = 0; i < 2; i++) {
+                
+                context.moveTo(x+cx-divisionSizeX, y);
+                context.quadraticCurveTo(x+cx-divisionSizeX, y+cy-divisionSizeY, x, y+cy-divisionSizeY);
+            }
+
+
+            context.stroke();
+            context.lineWidth = 1;
+        }
+    }
+
 
     function renderMap (){
         let renderId1 = trainingRenderId1();
@@ -125,6 +156,7 @@ import CreateMap from './map';
         let renderId4 = trainingRenderId4();
         let renderId5 = trainingRenderId5();
         let renderId6 = trainingRenderId6();
+        let renderDubleAngle = trainingDubleAngle();
         
         gameMap.map((elRow, ir)=>{
             elRow.map((elCol, ic)=>{
@@ -149,7 +181,7 @@ import CreateMap from './map';
                     case 5:
                         return renderId5(x, y)
                     case 6:
-                        return renderId6(x, y)    
+                        return renderDubleAngle(x, y, ir, ic)    
                 }
 
 
