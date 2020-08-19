@@ -153,10 +153,10 @@ import RenderMapElements from './mapElement';
             context.strokeStyle = '#1b1bcd';
             context.lineWidth = 4;
 
-            if(r+1 != gameMap.length && (gameMap[r+1][c] === 2 || gameMap[r+1][c] === 4)) params.push([x+cx, y+ySteep]);
-            if(r != 0 && (gameMap[r-1][c] === 2 || gameMap[r-1][c] === 4)) params.push([x+cx, y]);
-            if(c+1 != gameMap[r].length && (gameMap[r][c+1] === 2 || gameMap[r][c+1] === 4)) params.push([x+xSteep, y+cy]);
-            if(c != 0 && (gameMap[r][c-1] === 2 || gameMap[r][c-1] === 4)) params.push([x, y+cy]);
+            if(r+1 != gameMap.length && (gameMap[r+1][c] === '=' || gameMap[r+1][c] === '║')) params.push([x+cx, y+ySteep]);
+            if(r != 0 && (gameMap[r-1][c] === '=' || gameMap[r-1][c] === '║')) params.push([x+cx, y]);
+            if(c+1 != gameMap[r].length && (gameMap[r][c+1] === '=' || gameMap[r][c+1] === '║')) params.push([x+xSteep, y+cy]);
+            if(c != 0 && (gameMap[r][c-1] === '=' || gameMap[r][c-1] === '║')) params.push([x, y+cy]);
 
             let [s, e] = params;
             let sx = s[0], sy = s[1], ex = e[0], ey = e[1];
@@ -182,10 +182,10 @@ import RenderMapElements from './mapElement';
                     context.strokeStyle = '#1b1bcd';
                     context.lineWidth = 4;
         
-                    if(r+1 != gameMap.length && (gameMap[r+1][c] === 2 || gameMap[r+1][c] === 4)) params.push([x+cx, y+ySteep]);
-                    if(r != 0 && (gameMap[r-1][c] === 2 || gameMap[r-1][c] === 4)) params.push([x+cx, y]);
-                    if(c+1 != gameMap[r].length && (gameMap[r][c+1] === 2 || gameMap[r][c+1] === 4)) params.push([x+xSteep, y+cy]);
-                    if(c != 0 && (gameMap[r][c-1] === 2 || gameMap[r][c-1] === 4)) params.push([x, y+cy]);
+                    if(r+1 != gameMap.length && (gameMap[r+1][c] === '=' || gameMap[r+1][c] === '║')) params.push([x+cx, y+ySteep]);
+                    if(r != 0 && (gameMap[r-1][c] === '=' || gameMap[r-1][c] === '║')) params.push([x+cx, y]);
+                    if(c+1 != gameMap[r].length && (gameMap[r][c+1] === '=' || gameMap[r][c+1] === '║')) params.push([x+xSteep, y+cy]);
+                    if(c != 0 && (gameMap[r][c-1] === '=' || gameMap[r][c-1] === '║')) params.push([x, y+cy]);
         
                     let [s, e] = params;
                     let sx = s[0], sy = s[1], ex = e[0], ey = e[1];
@@ -237,39 +237,39 @@ import RenderMapElements from './mapElement';
 
                 context.beginPath();
                 switch(elCol){
-                    case 0: 
+                    case '#': 
                         break;
-                    case 1:
+                    case '@':
                         return renderId1(x, y);
-                    case 2:
+                    case '=':
                         return renderId2(x, y)
-                    case 3:
+                    case '╬':
                         return renderDubleAngle(x, y, ir, ic) 
-                    case 4:
+                    case '║':
                         return renderId4(x, y) 
-                    case 5:
+                    case '-':
                         return renderSoloLine(x, y, true) 
-                    case 6:
+                    case '|':
                         return renderSoloLine(x, y, false)  
-                    case 7:
+                    case 'L':
                         return renderSoloAngle(x, y, 'str' );  
-                    case 8:
+                    case '┏':
                         return renderSoloAngle(x, y, 'sbr' ); 
-                    case 9:
-                        return renderSoloAngle(x, y, 'slt' );  
-                    case 10:
-                        return renderSoloAngle(x, y, 'slb' );   
-                    case 11:
-                        return renderSoloAngle(x, y, 'drb' ); 
-                    case 12:
-                        return renderSoloAngle(x, y, 'drt' );    
-                    case 13:
-                        return renderSoloAngle(x, y, 'dtl' ); 
-                    case 14:
-                        return renderSoloAngle(x, y, 'dbl' ); 
-                    case 15:
-                        return renderDubleAcuteAngle(x, y, ir, ic) 
-                    case 15:
+                    // case 9:
+                    //     return renderSoloAngle(x, y, 'slt' );  
+                    // case 10:
+                    //     return renderSoloAngle(x, y, 'slb' );   
+                    // case 11:
+                    //     return renderSoloAngle(x, y, 'drb' ); 
+                    // case 12:
+                    //     return renderSoloAngle(x, y, 'drt' );    
+                    // case 13:
+                    //     return renderSoloAngle(x, y, 'dtl' ); 
+                    // case 14:
+                    //     return renderSoloAngle(x, y, 'dbl' ); 
+                    // case 15:
+                    //     return renderDubleAcuteAngle(x, y, ir, ic) 
+                    case '╫':
                         return renderDubleAcuteAngle(x, y, ir, ic) 
                     case 16:
                         return renderId16(x, y)                                          
