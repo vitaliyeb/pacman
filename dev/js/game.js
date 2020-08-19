@@ -34,13 +34,12 @@ import CreateMap from './map';
 
         return (x, y)=>{
             context.strokeStyle = '#1b1bcd';
-            context.lineWidth = 2;
+            context.lineWidth = 4;
             context.moveTo(x, y+cy-divisionSize);
             context.lineTo(x+xSteep, y+cy-divisionSize);
             context.moveTo(x, y+cy+divisionSize);
             context.lineTo(x+xSteep, y+cy+divisionSize);
             context.stroke();
-            context.lineWidth = 1;
         }
     }
 
@@ -53,11 +52,11 @@ import CreateMap from './map';
             context.strokeStyle = '#1b1bcd';
             
             if(isHorizontal){
-                context.lineWidth = 2;
+                context.lineWidth = 4;
                 context.moveTo(x,  y + cy);
                 context.lineTo(x + xSteep, y + cy);
             }else {
-                context.lineWidth = 3;
+                context.lineWidth = 5;
                 context.moveTo(x + cx,  y);
                 context.lineTo(x + cx, y + ySteep); 
             }
@@ -77,6 +76,9 @@ import CreateMap from './map';
         function dbHelper(x, y, xq, yq, x1,y1,x2,y2,y3){
             context.moveTo(x, y);
             context.quadraticCurveTo(xq, yq, x1,y1);
+            context.stroke();
+            context.beginPath();
+            context.lineWidth = 5;
             context.moveTo(x2,y2);
             context.lineTo(x2,y3);
             context.stroke();
@@ -85,7 +87,7 @@ import CreateMap from './map';
         return (x, y, modify)=>{
             let params = [];
             context.strokeStyle = '#1b1bcd';
-            context.lineWidth = 2;
+            context.lineWidth = 4;
             switch(modify){
                 case 'str':
                     params.push([x+cx, y], [x+cx, y+cy ,x+xSteep, y+cy])
@@ -127,13 +129,12 @@ import CreateMap from './map';
 
         return (x, y)=>{
             context.strokeStyle = '#1b1bcd';
-            context.lineWidth = 3;
+            context.lineWidth = 5;
             context.moveTo(x+cx-divisionSize, y);
             context.lineTo(x+cx-divisionSize, y+ySteep);
             context.moveTo(x+cx+divisionSize, y);
             context.lineTo(x+cx+divisionSize, y+ySteep);
             context.stroke();
-            context.lineWidth = 1;
         }
     }
 
@@ -147,7 +148,7 @@ import CreateMap from './map';
             let params = [];
 
             context.strokeStyle = '#1b1bcd';
-            context.lineWidth = 2;
+            context.lineWidth = 4;
 
             if(r+1 != gameMap.length && (gameMap[r+1][c] === 2 || gameMap[r+1][c] === 4)) params.push([x+cx, y+ySteep]);
             if(r != 0 && (gameMap[r-1][c] === 2 || gameMap[r-1][c] === 4)) params.push([x+cx, y]);
