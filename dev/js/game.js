@@ -164,11 +164,52 @@ import CreateMap from './map';
                 context.quadraticCurveTo(ex + (cx * mqx) + (dx * k), ey + (dy * k * my), ex, ey + (dy * k * my));
             });
             context.stroke()
-            context.lineWidth = 1;
         }
     }
 
+    function trainingRenderDubleAcuteAngle(){
+                //угол острый
+                let cx = xSteep/2;
+                let cy = ySteep/2;
+                let dy = cy/4; 
+                let dx = cx/4;
+                return (x, y, r, c) => {
+                    let params = [];
+        
+                    context.strokeStyle = '#1b1bcd';
+                    context.lineWidth = 4;
+        
+                    if(r+1 != gameMap.length && (gameMap[r+1][c] === 2 || gameMap[r+1][c] === 4)) params.push([x+cx, y+ySteep]);
+                    if(r != 0 && (gameMap[r-1][c] === 2 || gameMap[r-1][c] === 4)) params.push([x+cx, y]);
+                    if(c+1 != gameMap[r].length && (gameMap[r][c+1] === 2 || gameMap[r][c+1] === 4)) params.push([x+xSteep, y+cy]);
+                    if(c != 0 && (gameMap[r][c-1] === 2 || gameMap[r][c-1] === 4)) params.push([x, y+cy]);
+        
+                    let [s, e] = params;
+                    let sx = s[0], sy = s[1], ex = e[0], ey = e[1];
+                    let my = sx < ex ? ey > sy ? -1 : 1 : ey > sy ? 1 : -1;
+                    let mqx = sx < ex ? -1 : 1;
+                    [-1, 1].map((k)=>{
+                        context.moveTo(sx + (dx*k), sy);
+                        context.lineTo(ex + (cx * mqx) + (dx * k), ey + (dy * k * my),);
+                        context.lineTo(ex, ey + (dy * k * my));
+                    });
+                    context.stroke()
+                }
+    }
 
+    function trainingRenderId16 (){
+        //горизонтальная линия у дома монстров
+        let cy = ySteep/2;
+
+        return (x, y)=>{
+            context.strokeStyle = '#ffb8ff';
+            context.lineWidth = 4;
+            context.moveTo(x, y+cy);
+            context.lineTo(x+xSteep, y+cy);
+
+            context.stroke();
+        }
+    }
 
     function renderMap (){
         let renderId1 = trainingRenderId1();
@@ -177,6 +218,8 @@ import CreateMap from './map';
         let renderDubleAngle = trainingDubleAngle();
         let renderSoloLine = trainingRenderSoloLine();
         let renderSoloAngle = trainingRenderSoloAngle();
+        let renderDubleAcuteAngle = trainingRenderDubleAcuteAngle();
+        let renderId16 = trainingRenderId16();
 
         
         gameMap.map((elRow, ir)=>{
@@ -220,7 +263,13 @@ import CreateMap from './map';
                     case 13:
                         return renderSoloAngle(x, y, 'dtl' ); 
                     case 14:
-                        return renderSoloAngle(x, y, 'dbl' );                               
+                        return renderSoloAngle(x, y, 'dbl' ); 
+                    case 15:
+                        return renderDubleAcuteAngle(x, y, ir, ic) 
+                    case 15:
+                        return renderDubleAcuteAngle(x, y, ir, ic) 
+                    case 16:
+                        return renderId16(x, y)                                          
                 }
 
 
