@@ -67,11 +67,6 @@ import CreateMap from './map';
         let cy = ySteep/2;
         let dy = cy/4; 
         let dx = cx/4;
-        function dotHelper (x, y, c){
-            context.fillStyle = c;
-            context.fillRect(x, y, 5, 5);
-            context.fill();
-        }
         return (x, y, r, c) => {
             let params = [];
 
@@ -115,6 +110,8 @@ import CreateMap from './map';
 
                 context.beginPath();
                 switch(elCol){
+                    case 0: 
+                        break;
                     case 1:
                         return renderId1(x, y);
                     case 2:
