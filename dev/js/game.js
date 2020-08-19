@@ -1,10 +1,10 @@
 import CreateMap from './map';
+import RenderMapElements from './mapElement';
 
 
 
 (()=>{
     
-
 
     let canvas = document.getElementById('game');
     canvas.width = window.innerWidth;
@@ -13,6 +13,9 @@ import CreateMap from './map';
     let gameMap = CreateMap();
     let xSteep = _configCanvas.w/gameMap[0].length;
     let ySteep = _configCanvas.h/gameMap.length;
+    let renderMapElements = new RenderMapElements(xSteep, ySteep);
+    
+    console.log(renderMapElements);
     
     function trainingRenderId1 (){
         //розовая еда пакамена
@@ -279,14 +282,5 @@ import CreateMap from './map';
 
     renderMap();
 
-    window.onresize = ()=>{
-        let w = window.innerWidth;
-        let h = window.innerHeight
-        _configCanvas.w = w;
-        _configCanvas.h = h;
-        canvas.width = w;
-        canvas.height = h;
-        renderMap();
-    }
 
 })()
