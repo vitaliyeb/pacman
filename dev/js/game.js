@@ -44,6 +44,82 @@ import CreateMap from './map';
         }
     }
 
+    function trainingRenderSoloLine (){
+        // одинарная линия
+        let cy = ySteep/2;
+        let cx = xSteep/2;
+
+        return (x, y, isHorizontal)=>{
+            context.strokeStyle = '#1b1bcd';
+            
+            if(isHorizontal){
+                context.lineWidth = 2;
+                context.moveTo(x,  y + cy);
+                context.lineTo(x + xSteep, y + cy);
+            }else {
+                context.lineWidth = 3;
+                context.moveTo(x + cx,  y);
+                context.lineTo(x + cx, y + ySteep); 
+            }
+            
+            context.stroke();
+            context.lineWidth = 1;
+        }
+    }
+
+    
+    function trainingRenderSoloAngle (){
+        // одинарный угол
+        let cy = ySteep/2;
+        let cx = xSteep/2;
+        let dy = cy/4; 
+        let dx = cx/4;
+        function dbHelper(x, y, xq, yq, x1,y1,x2,y2,y3){
+            context.moveTo(x, y);
+            context.quadraticCurveTo(xq, yq, x1,y1);
+            context.moveTo(x2,y2);
+            context.lineTo(x2,y3);
+            context.stroke();
+
+        }
+        return (x, y, modify)=>{
+            let params = [];
+            context.strokeStyle = '#1b1bcd';
+            context.lineWidth = 2;
+            switch(modify){
+                case 'str':
+                    params.push([x+cx, y], [x+cx, y+cy ,x+xSteep, y+cy])
+                break;
+                case 'sbr':
+                    params.push([x+cx, y+ySteep], [x+cx, y+cy ,x+xSteep, y+cy])
+                break;
+                case 'slb':
+                    params.push([x, y+cy], [x+cx, y+cy ,x+cx, y+ySteep])
+                break;
+                case 'slt':
+                    params.push([x, y+cy], [x+cx, y+cy ,x+cx, y])
+                break;
+                case 'drb':
+                    return dbHelper(x+cx+dx, y+ySteep, x+cx+dy, y+cy-dy, x+xSteep, y+cy, x+cx-dx, y, y+ySteep);
+                    break;
+                case 'drt':
+                    return dbHelper(x+cx+dx, y, x+cx+dx, y+cy+dy, x+xSteep, y+cy, x+cx-dx, y, y+ySteep);
+                    break;   
+                case 'dtl':
+                    return dbHelper(x+cx-dx, y, x+cx-dy, y+cy, x, y+cy, x+cx+dx, y, y+ySteep);
+                    break;
+                case 'dbl':
+                    return dbHelper(x+cx-dx, y+ySteep, x+cx-dx, y+cy-dy, x, y+cy, x+cx+dx, y, y+ySteep);
+                    break;     
+            }
+            
+            context.moveTo(...params[0]);
+            context.quadraticCurveTo(...params[1]);
+            context.stroke();
+            context.lineWidth = 1;
+        }
+    }
+
     function trainingRenderId4 (){
         //Вертикальная линия вокруг карты
         let cx = xSteep/2;
@@ -92,11 +168,15 @@ import CreateMap from './map';
     }
 
 
+
     function renderMap (){
         let renderId1 = trainingRenderId1();
         let renderId2 = trainingRenderId2();
         let renderId4 = trainingRenderId4();
         let renderDubleAngle = trainingDubleAngle();
+        let renderSoloLine = trainingRenderSoloLine();
+        let renderSoloAngle = trainingRenderSoloAngle();
+
         
         gameMap.map((elRow, ir)=>{
             elRow.map((elCol, ic)=>{
@@ -119,7 +199,27 @@ import CreateMap from './map';
                     case 3:
                         return renderDubleAngle(x, y, ir, ic) 
                     case 4:
-                        return renderId4(x, y)         
+                        return renderId4(x, y) 
+                    case 5:
+                        return renderSoloLine(x, y, true) 
+                    case 6:
+                        return renderSoloLine(x, y, false)  
+                    case 7:
+                        return renderSoloAngle(x, y, 'str' );  
+                    case 8:
+                        return renderSoloAngle(x, y, 'sbr' ); 
+                    case 9:
+                        return renderSoloAngle(x, y, 'slt' );  
+                    case 10:
+                        return renderSoloAngle(x, y, 'slb' );   
+                    case 11:
+                        return renderSoloAngle(x, y, 'drb' ); 
+                    case 12:
+                        return renderSoloAngle(x, y, 'drt' );    
+                    case 13:
+                        return renderSoloAngle(x, y, 'dtl' ); 
+                    case 14:
+                        return renderSoloAngle(x, y, 'dbl' );                               
                 }
 
 
