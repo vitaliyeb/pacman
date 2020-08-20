@@ -43,8 +43,8 @@ async function returnProgectConfig (){
                         },
                     },
                   ],
-                },
-                {
+              },
+              {
                   test: /\.(woff(2)?|ttf|otf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
                   use: [
                     {
@@ -55,7 +55,16 @@ async function returnProgectConfig (){
                       }
                     }
                   ]
-                }
+              },
+              {
+                test: /\.js?$/,
+                use: [
+                  {
+                    loader: 'babel-loader'
+                  }
+                ]
+            },
+
           ]
       },
       plugins: [

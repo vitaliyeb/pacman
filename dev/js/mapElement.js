@@ -1,8 +1,11 @@
+import Pacman from './pacman';
 
 export default class RenderMapElements {
-    constructor (xs, ys, context, gameMap){
+    constructor (xs, ys, contextMap, gameMap, contextGame, entities){
         this.gameMap = gameMap;
-        this.c = context; 
+        this.c = contextMap; 
+        this.entities = entities;
+        this.cg = contextGame;
         this.xs = xs;
         this.ys = ys;
         this.cy = ys/2;
@@ -28,6 +31,11 @@ export default class RenderMapElements {
 
     '='(x, y){
         return this.rdl(x, y, true);
+    }
+
+    'P'(x,y){
+        let { cg, xs, ys} = this;
+        this.entities['pacman'] = new Pacman(cg, xs, ys, x,y);
     }
 
     '║'(x, y){
