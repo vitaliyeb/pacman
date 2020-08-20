@@ -43,8 +43,8 @@ export default class RenderMapElements {
     }
 
     '┅'(x, y){
-        let {c, cy, xs, colorLine, lineWidth} = this;
-        c.strokeStyle = colorLine;
+        let {c, cy, xs, lineWidth} = this;
+        c.strokeStyle = '#ffb8ff';
         c.lineWidth = lineWidth;
         c.moveTo(x, y+cy);
         c.lineTo(x+xs, y+cy);
@@ -63,6 +63,16 @@ export default class RenderMapElements {
         return this.rsa([x+cx, y], [x+cx, y+cy ,x+xs, y+cy]);
     }
 
+    '╕'(x, y){
+        let {xs, ys, cx, cy, dx, dy} = this;
+        return this.rdla(x, y+cy+dy, x+cx-dx, y+cy+dy, x+cx, y+ys, x, y+cy-dy, y+cy-dy, x+xs);
+    }
+
+    '╒'(x, y){
+        let {xs, ys, cx, cy, dx, dy} = this;
+        return this.rdla(x+xs, y+cy+dy, x+cx+dx, y+cy+dy, x+cx, y+ys, x, y+cy-dy, y+cy-dy, x+xs);
+    }
+    
     '┏'(x, y){
         let {xs, ys, cx, cy} = this;
         return this.rsa([x+cx, y+ys], [x+cx, y+cy ,x+xs, y+cy]);
@@ -95,14 +105,14 @@ export default class RenderMapElements {
         return this.rdla(x+cx-dx, y+ys, x+cx-dx, y+cy-dy, x, y+cy, x+cx+dx, y, y+xs);
     }
 
-    'rdla'(x, y, xq, yq, x1,y1,x2,y2,y3){
+    'rdla'(x, y, xq, yq, x1,y1,x2,y2,y3, x3){
         let { c, colorLine, lineWidth } = this;
         c.strokeStyle = colorLine;
         c.lineWidth = lineWidth;
         c.moveTo(x, y);
         c.quadraticCurveTo(xq, yq, x1,y1);
         c.moveTo(x2,y2);
-        c.lineTo(x2,y3);
+        c.lineTo(x3 || x2,y3);
     }
 
     'rsa'(s, e){
