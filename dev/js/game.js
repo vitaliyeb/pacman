@@ -1,33 +1,62 @@
 import CreateMap from './map';
 import RenderMapElements from './mapElement';
-
+import Helper from './helper';
+import Pacman from './pacman';
 
 
 (()=>{
     
 
-    let canvas = document.getElementById('game');
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    let context = canvas.getContext('2d');
+    let canvasMap = document.getElementById('map');
+    let canvasGame = document.getElementById('game');
+    let size = window.innerWidth >  window.innerHeight ? window.innerHeight-15: window.innerWidth-15;
+    let mapContext = canvasMap.getContext('2d');
+    let gameContext = canvasGame.getContext('2d');
+    let helper = new Helper(size);
+    helper.setSize(canvasMap, canvasGame);
     let gameMap = CreateMap();
-    let xSteep = _configCanvas.w/gameMap[0].length;
-    let ySteep = _configCanvas.h/gameMap.length;
-    let renderMapElements = new RenderMapElements(xSteep, ySteep, context, gameMap);
+    let xSteep = size/gameMap[0].length;
+    let ySteep = size/gameMap.length;
+    let pacman = new Pacman(gameContext, xSteep, ySteep);
+    let renderMapElements = new RenderMapElements(xSteep, ySteep, mapContext, gameMap);
   
     
 
     function renderMap (){
         gameMap.map((elRow, ir)=>{
             elRow.map((elCol, ic)=>{
-                context.beginPath();
+                mapContext.beginPath()
+                mapContext.lineWidth = 1;
+                mapContext.strokeStyle = '#fff';
+                mapContext.strokeRect(xSteep*ic, ySteep*ir, xSteep, ySteep)
+                mapContext.stroke()
+                mapContext.beginPath();
                 renderMapElements[elCol](xSteep*ic, ySteep*ir, ir, ic) 
-                context.stroke();
+                mapContext.stroke();
             })
         })
     }
+    
+    function loop(){
 
-    renderMap();
+        pacman.renderPacMan();
+
+        requestAnimationFrame(loop);
+    }
+
+
+
+
+    function init() {
+        renderMap();
+        pacman.createCounterMounth();
+        
+        loop();
+    }
+
+
+
+    init();
 
 
 })()
