@@ -33,9 +33,9 @@ export default class RenderMapElements {
         return this.rdl(x, y, true);
     }
 
-    'P'(x,y) {
-        let { cg, xs, ys } = this;
-        this.entities['pacman'] = new Pacman(cg, xs, ys, x, y);
+    'P'(x, y, ir, ic) {
+        let { cg, xs, ys, gameMap} = this;
+        this.entities['pacman'] = new Pacman(cg, xs, ys, x, y, ir, ic, gameMap);
     }
 
     '║'(x, y) {

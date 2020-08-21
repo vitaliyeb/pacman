@@ -22,6 +22,12 @@ import Helper from './helper';
         gameMap.map((row, ir) => {
             row.map((col, ic) => {
                 mapContext.beginPath();
+                mapContext.lineWidth = 1;
+                mapContext.rect(xSteep * ic, ySteep * ir, xSteep, ySteep);
+                mapContext.stroke();
+
+                
+                mapContext.beginPath();
                 renderMapElements[col](xSteep * ic, ySteep * ir, ir, ic) 
                 mapContext.stroke();
             });
