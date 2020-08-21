@@ -11,24 +11,22 @@ import Helper from './helper';
     let size = window.innerWidth >  window.innerHeight ? window.innerHeight - 15 : window.innerWidth - 15;
     let mapContext = canvasMap.getContext('2d');
     let gameContext = canvasGame.getContext('2d');
-    let helper = new Helper(size);
-    helper.setSize(canvasMap, canvasGame);
     let gameMap = CreateMap();
-    let xSteep = size / gameMap[0].length;
-    let ySteep = size / gameMap.length;
-    let renderMapElements = new RenderMapElements(xSteep, ySteep, mapContext, gameMap, gameContext, entities);
+    let helper = new Helper(size, gameMap);
+    let [xs, ys] =  helper.setSize(canvasMap, canvasGame);
+    let renderMapElements = new RenderMapElements(xs, ys, mapContext, gameMap, gameContext, entities);
 
     function renderMap() {
         gameMap.map((row, ir) => {
             row.map((col, ic) => {
                 mapContext.beginPath();
                 mapContext.lineWidth = 1;
-                mapContext.rect(xSteep * ic, ySteep * ir, xSteep, ySteep);
+                mapContext.rect(xs * ic, ys * ir, xs, ys);
                 mapContext.stroke();
 
                 
                 mapContext.beginPath();
-                renderMapElements[col](xSteep * ic, ySteep * ir, ir, ic) 
+                renderMapElements[col](xs * ic, ys * ir, ir, ic) 
                 mapContext.stroke();
             });
         });

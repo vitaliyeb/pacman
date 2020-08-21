@@ -12,13 +12,26 @@ export default class Pacman {
         this.speed = 1;
         this.angleOpenMounth = (Math.PI / 50 * (xs / 4 * 3)) / 2;
         this.aa = Math.PI / 2;
-        this.direction = [0, 0]; // x y
+        this.direction = [1, 0]; // x y
         this.anglePacman = 0;
         this.openMounth = true;
         this.color = '#ffff00';
         this.name = 'pac man';
         this.r = xs < ys ? Math.floor(xs / 2) - 1 : Math.floor(ys / 2) - 1;
         this.createCounterMounth();
+        this.keyEventId = window.addEventListener('keydown', ({code})=>{
+            switch(code){
+                case 'ArrowUp':
+                    return this.direction = [0, -1];
+                case 'ArrowLeft':
+                    return this.direction = [-1, 0];
+                case 'ArrowRight':
+                    return this.direction = [1, 0];
+                case 'ArrowDown':
+                    return this.direction = [0, 1];            
+            }
+            console.log(code);
+        });
     }
 
     createCounterMounth() {
@@ -30,16 +43,11 @@ export default class Pacman {
 
     coolision(x, y, xm, ym, xs, ys, yd, xd) {
         let { gameMap } = this;
-        let ccol = x / xs;
-        let crow = y / ys;
-        // let nextEl = gameMap[crow + yd][ccol + xd];
-        console.log(ccol, crow);
+        let ccol = xd === -1 ? Math.ceil(x / xs) : Math.floor(x / xs);
+        let crow = Math.floor(y / ys);
+        let nextEl = gameMap[crow + yd][ccol + xd];
 
-        // console.log(nextEl);
-        // if(nextEl === '@' || nextEl === '#') return true;
-        
-        
-   
+        if(nextEl === '@' || nextEl === '#' || nextEl === 'P') return true;
         
     }
 
@@ -48,6 +56,8 @@ export default class Pacman {
         let xm = x + (speed * dx), 
             ym = y + (speed * dy);
         let move = this.coolision(x, y, xm, ym, xs, ys, dy, dx );
+
+        //console.log(x, xm , y, ym, move);
 
         if(move){
             this.x = xm;
