@@ -8,9 +8,11 @@ export default class Pacman {
         this.ys = ys;
         this.x = x;
         this.y = y;
+        this.nextMapCoord = [ir , ic + 1]
         this.mapCoord = [ir, ic];
         this.speed = 1;
         this.angleOpenMounth = (Math.PI / 50 * (xs / 4 * 3)) / 2;
+        this.changeCourse = undefined;
         this.aa = Math.PI / 2;
         this.direction = [1, 0]; // x y
         this.anglePacman = 0;
@@ -22,15 +24,14 @@ export default class Pacman {
         this.keyEventId = window.addEventListener('keydown', ({code})=>{
             switch(code){
                 case 'ArrowUp':
-                    return this.direction = [0, -1];
+                    return this.changeCourse = [0, -1];
                 case 'ArrowLeft':
-                    return this.direction = [-1, 0];
+                    return this.changeCourse = [-1, 0];
                 case 'ArrowRight':
-                    return this.direction = [1, 0];
+                    return this.changeCourse = [1, 0];
                 case 'ArrowDown':
-                    return this.direction = [0, 1];            
+                    return this.changeCourse = [0, 1];            
             }
-            console.log(code);
         });
     }
 
@@ -42,30 +43,38 @@ export default class Pacman {
     }
 
     coolision(x, y, xm, ym, xs, ys, yd, xd) {
-        let { gameMap } = this;
-        let ccol = xd === -1 ? Math.ceil(x / xs) : Math.floor(x / xs);
-        let crow = Math.floor(y / ys);
-        let nextEl = gameMap[crow + yd][ccol + xd];
+        let { gameMap, c } = this;
 
-        if(nextEl === '@' || nextEl === '#' || nextEl === 'P') return true;
+        
+    }
+
+    updateCoords(c, tc, shift, v){
+        let { nextMapCoord:[ir , ic], direction: [dx , dy], } = this;
+
+        if(this[v] !== tc) return this[v] += shift;
+
+        if(!this.changeCourse) this.nextMapCoord = [ir + dy , ic + dx];
+        
+        if(this.changeCourse) {
+            let { changeCourse:[nx, ny] } = this;
+            this.nextMapCoord = [ir + ny , ic + nx];
+        }
+
+        this.mapCoord = [ir , ic];
+           
+                    
+        
         
     }
 
     move() {
-        let {x, y, direction: [ dx, dy], speed, xs, ys} = this;
-        let xm = x + (speed * dx), 
-            ym = y + (speed * dy);
-        let move = this.coolision(x, y, xm, ym, xs, ys, dy, dx );
+        let {x, y, direction: [ dx, dy], speed, xs, ys, mapCoord: [ir, ic], nextMapCoord: [nir, nic]} = this;
 
-        //console.log(x, xm , y, ym, move);
-
-        if(move){
-            this.x = xm;
-            this.y = ym;
-        }
-       
+        if(ic !== nic) this.updateCoords(x , xs * nic, speed * dx, 'x');
+        if(ir !== nir) this.updateCoords(x , ys * nir, speed * dy, 'y');
 
     }
+
 
     renderPacMan() {
         this.move();
