@@ -6,7 +6,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 async function getConfig() {
 	return {
 		entry: './dev/common.js',
-		watch: true,
+		watch: false,
 		output: {
 			path: path.resolve(__dirname, 'build'),
 			filename: 'bundle.js'
