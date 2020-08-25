@@ -17,6 +17,7 @@ export default class Pacman {
         this.direction = [1, 0]; // x y
         this.anglePacman = 0;
         this.openMounth = true;
+        this.stope = false;
         this.endChangeDirection = undefined;
         this.color = '#ffff00';
         this.name = 'pac man';
@@ -45,30 +46,53 @@ export default class Pacman {
     }
 
     coolision(v, shift) {
-        let { gameMap, c, nextMapCoord: [nr, nc] } = this;
-        let nextElem = gameMap[nr][nc];
-        if(nextElem === '@' || nextElem === 'P' || nextElem === '#') return this[v] += shift;
-        
-        
+        let { stope, mapCoord:[mapCoordY, mapCoordX] ,gameMap, c, nextMapCoord: [nextMapY, nextMapX], changeCourse } = this;
+
+        if(this.checkPassage(nextMapY, nextMapX)){
+            if(stope) {
+                this.createCounterMounth();
+                this.stope = false;
+            }
+            return this[v] += shift;
+        }
+
+        if(changeCourse){
+            let [changeX, changeY] = changeCourse;
+            this.nextMapCoord = [mapCoordY + changeY , mapCoordX + changeX];
+            this.direction = changeCourse;
+            this.changeCourse = undefined;
+        }
+        if(!stope) this.stopePacman();
     }
 
     setPropertyOnClick = (isDirection, x, y) => {
-        let { nextMapCoord:[ir , ic], direction: [dx , dy], mapCoord: [r, c], endChangeDirection } = this;
+        let { stope, gameMap, nextMapCoord:[ir , ic], direction: [dx , dy], mapCoord: [r, c], endChangeDirection } = this;
         if(isDirection){
             if(endChangeDirection === x || endChangeDirection === y) return;
-            this.direction = [x , y];
-            this.nextMapCoord = [ir + y , ic + x]
-            this.mapCoord = [ir , ic];
-            this.endChangeDirection = x === 0 ? y : x;
+            if(this.checkPassage(ir + y, ic + x)){
+                this.direction = [x , y];
+                this.nextMapCoord = [ir + y , ic + x]
+                this.mapCoord = [ir , ic];
+                this.endChangeDirection = x === 0 ? y : x;
+            }
         } else {
-            this.changeCourse = [x , y];
+            let coords = stope ? [r + y, c + x] : [ir + y, ic + x];
+            if(this.checkPassage(...coords)){
+                return this.changeCourse = [x , y]
+            };
         }
+    }
+
+    checkPassage(row, collumn) {
+        let { gameMap } = this;
+        let checkElem = gameMap[row][collumn];
+        if( checkElem === '@' || checkElem === 'P' || checkElem === '#' ) return true;
+        return false;
     }
 
     updateCoords(c, tc, shift, v){
         let { nextMapCoord:[ir , ic], direction: [dx , dy], } = this;
-        if(this[v] !== tc) return this.coolision(v, shift);;
-
+        if(this[v] !== tc) return this.coolision(v, shift);
         if(!this.changeCourse) this.nextMapCoord = [ir + dy , ic + dx];
         
         if(this.changeCourse) {
@@ -84,17 +108,21 @@ export default class Pacman {
 
     move() {
         let {x, y, direction: [ dx, dy], speed, xs, ys, mapCoord: [ir, ic], nextMapCoord: [nir, nic]} = this;
-
-        if(ic !== nic) this.updateCoords(x , xs * nic, speed * dx, 'x');
-        if(ir !== nir) this.updateCoords(y , ys * nir, speed * dy, 'y');
-
+        
+        if(ic !== nic) return this.updateCoords(x , xs * nic, speed * dx, 'x');
+        if(ir !== nir) return this.updateCoords(y , ys * nir, speed * dy, 'y');
     }
 
+    stopePacman() {
+        this.stope = true;
+        clearInterval(this.counterMounth);
+        this.openMounth = false;
+    }
 
     renderPacMan() {
+        this.clearPacman();
         this.move();
-        let { c, xs, ys, x, y, color, r, angleOpenMounth, anglePacman, aa, openMounth, clearPacman } = this;
-        clearPacman();
+        let { c, xs, ys, x, y, color, r, angleOpenMounth, anglePacman, aa, openMounth} = this;
         let cx = x + Math.floor(xs / 2), yc = y + Math.floor(ys / 2);
         c.fillStyle = color;
         c.beginPath();

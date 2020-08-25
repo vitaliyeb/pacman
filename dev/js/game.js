@@ -19,10 +19,10 @@ import Helper from './helper';
     function renderMap() {
         gameMap.map((row, ir) => {
             row.map((col, ic) => {
-                mapContext.beginPath();
-                mapContext.lineWidth = 1;
-                mapContext.rect(xs * ic, ys * ir, xs, ys);
-                mapContext.stroke();
+                // mapContext.beginPath();
+                // mapContext.lineWidth = 1;
+                // mapContext.rect(xs * ic, ys * ir, xs, ys);
+                // mapContext.stroke();
 
                 
                 mapContext.beginPath();
