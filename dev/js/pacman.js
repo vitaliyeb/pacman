@@ -44,9 +44,11 @@ export default class Pacman {
         }, 200);
     }
 
-    coolision(x, y, xm, ym, xs, ys, yd, xd) {
-        let { gameMap, c } = this;
-
+    coolision(v, shift) {
+        let { gameMap, c, nextMapCoord: [nr, nc] } = this;
+        let nextElem = gameMap[nr][nc];
+        if(nextElem === '@' || nextElem === 'P' || nextElem === '#') return this[v] += shift;
+        
         
     }
 
@@ -65,7 +67,7 @@ export default class Pacman {
 
     updateCoords(c, tc, shift, v){
         let { nextMapCoord:[ir , ic], direction: [dx , dy], } = this;
-        if(this[v] !== tc) return this[v] += shift;
+        if(this[v] !== tc) return this.coolision(v, shift);;
 
         if(!this.changeCourse) this.nextMapCoord = [ir + dy , ic + dx];
         
