@@ -122,8 +122,9 @@ export default class Pacman {
     renderPacMan() {
         this.clearPacman();
         this.move();
-        let { c, xs, ys, x, y, color, r, angleOpenMounth, anglePacman, aa, openMounth} = this;
+        let { c, xs, ys, x, y, color, r, angleOpenMounth, aa, openMounth, direction: [xd, yd]} = this;
         let cx = x + Math.floor(xs / 2), yc = y + Math.floor(ys / 2);
+        let anglePacman = xd === 0 ? yd < 0 ? 3 : 1 : xd < 0 ? 2 : 0;
         c.fillStyle = color;
         c.beginPath();
         c.moveTo(cx, yc);
