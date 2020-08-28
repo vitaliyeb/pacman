@@ -44,4 +44,5 @@ import Helper from './helper';
     }
 
     init();
+    console.log(renderMapElements);
 })()

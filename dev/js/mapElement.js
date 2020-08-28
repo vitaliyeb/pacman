@@ -5,6 +5,7 @@ export default class RenderMapElements {
         this.gameMap = gameMap;
         this.c = contextMap; 
         this.entities = entities;
+        this.eatItem = [];
         this.cg = contextGame;
         this.xs = xs;
         this.ys = ys;
@@ -20,10 +21,12 @@ export default class RenderMapElements {
         this.colorLine = '#1b1bcd';
     }
 
-    '@'(x, y) {
-        let { c, ew, eh, exhs, eyhs } = this;
+    '@'(x, y, mr, mc) {
+        let { c, ew, eh, exhs, eyhs, eatItem } = this;
         c.fillStyle  = '#ffb8ae';
         c.fillRect(x + exhs, y + eyhs, ew, eh);
+        if(eatItem[mr]) eatItem[mr][mc] = {x: 'v'};
+        this.eatItem.push({});
     }
     '#'() {
         return;
