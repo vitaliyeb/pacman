@@ -5,7 +5,6 @@ export default class RenderMapElements {
         this.gameMap = gameMap;
         this.c = contextMap; 
         this.entities = entities;
-        this.eatItem = [];
         this.cg = contextGame;
         this.xs = xs;
         this.ys = ys;
@@ -25,8 +24,6 @@ export default class RenderMapElements {
         let { c, ew, eh, exhs, eyhs, eatItem } = this;
         c.fillStyle  = '#ffb8ae';
         c.fillRect(x + exhs, y + eyhs, ew, eh);
-        if(eatItem[mr]) eatItem[mr][mc] = {x: 'v'};
-        this.eatItem.push({});
     }
     '#'() {
         return;
@@ -37,8 +34,8 @@ export default class RenderMapElements {
     }
 
     'P'(x, y, ir, ic) {
-        let { cg, xs, ys, gameMap} = this;
-        this.entities['pacman'] = new Pacman(cg, xs, ys, x, y, ir, ic, gameMap);
+        let { cg, xs, ys, gameMap, c} = this;
+        this.entities['pacman'] = new Pacman(cg, xs, ys, x, y, ir, ic, gameMap, c);
     }
 
     '║'(x, y) {

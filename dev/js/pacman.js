@@ -1,10 +1,11 @@
 
 export default class Pacman {
-    constructor(c, xs, ys, x, y, ir, ic, gameMap) {
+    constructor(c, xs, ys, x, y, ir, ic, gameMap, contextMap) {
         this.c = c;
         this.xs = xs; 
         this.counterMounth = undefined;
         this.gameMap = gameMap;
+        this.contextMap = contextMap;
         this.ys = ys;
         this.x = x;
         this.y = y;
@@ -119,6 +120,18 @@ export default class Pacman {
         this.openMounth = false;
     }
 
+    ifEatElem() {
+        let { mapCoord:[ row, col], gameMap, contextMap: cm, xs, ys } = this;
+        if(gameMap[row][col] === '@'){
+            gameMap[row][col] = '#';
+            cm.beginPath();
+            cm.fillStyle = '#000';
+            cm.fillRect(xs * col, ys * row, xs, ys);
+            cm.closePath();
+            // ТУТ БУДЕТ ПРОДОЛЖЕНИЕ КОДА С ПОДСЧЕТОМ ОЧКОВ
+        }
+    }
+
     renderPacMan() {
         this.clearPacman();
         this.move();
@@ -130,7 +143,7 @@ export default class Pacman {
         c.moveTo(cx, yc);
         openMounth ? c.arc(cx, yc, r, angleOpenMounth + (aa * anglePacman), -angleOpenMounth + (aa * anglePacman)) : c.arc(cx, yc, r, 0, Math.PI * 2);
         c.fill();
-
+        this.ifEatElem();
     }
 
     clearPacman = () => {
