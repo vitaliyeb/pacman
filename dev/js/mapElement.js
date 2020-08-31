@@ -29,6 +29,10 @@ export default class RenderMapElements {
         return;
     }
 
+    'X'() {
+        return;
+    }
+
     '='(x, y) {
         return this.rdl(x, y, true);
     }

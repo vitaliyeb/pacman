@@ -21,6 +21,7 @@ export default class Pacman {
         this.stope = false;
         this.endChangeDirection = undefined;
         this.color = '#ffff00';
+        this.isThrough = false;
         this.name = 'pac man';
         this.r = xs < ys ? Math.floor(xs / 2) - 1 : Math.floor(ys / 2) - 1;
         this.createCounterMounth();
@@ -56,6 +57,7 @@ export default class Pacman {
             }
             return this[v] += shift;
         }
+        if (gameMap[mapCoordY][mapCoordX] === 'X') return this.through();
 
         if(changeCourse){
             let [changeX, changeY] = changeCourse;
@@ -64,6 +66,14 @@ export default class Pacman {
             this.changeCourse = undefined;
         }
         if(!stope) this.stopePacman();
+    }
+
+
+    through(){
+        let { direction: [directionX] } = this;
+        this.x += 1;
+        this.paintPac(50, 50)
+
     }
 
     setPropertyOnClick = (isDirection, x, y) => {
@@ -87,7 +97,7 @@ export default class Pacman {
     checkPassage(row, collumn) {
         let { gameMap } = this;
         let checkElem = gameMap[row][collumn];
-        if( checkElem === '@' || checkElem === 'P' || checkElem === '#' ) return true;
+        if( checkElem === '@' || checkElem === 'P' || checkElem === '#' || checkElem === 'X' ) return true;
         return false;
     }
 
@@ -135,7 +145,12 @@ export default class Pacman {
     renderPacMan() {
         this.clearPacman();
         this.move();
-        let { c, xs, ys, x, y, color, r, angleOpenMounth, aa, openMounth, direction: [xd, yd]} = this;
+
+        this.paintPac(this.x, this.y);
+        this.ifEatElem();
+    }
+    paintPac(x, y) {
+        let { c, xs, ys, color, r, angleOpenMounth, aa, openMounth, direction: [xd, yd]} = this;
         let cx = x + Math.floor(xs / 2), yc = y + Math.floor(ys / 2);
         let anglePacman = xd === 0 ? yd < 0 ? 3 : 1 : xd < 0 ? 2 : 0;
         c.fillStyle = color;
@@ -143,7 +158,6 @@ export default class Pacman {
         c.moveTo(cx, yc);
         openMounth ? c.arc(cx, yc, r, angleOpenMounth + (aa * anglePacman), -angleOpenMounth + (aa * anglePacman)) : c.arc(cx, yc, r, 0, Math.PI * 2);
         c.fill();
-        this.ifEatElem();
     }
 
     clearPacman = () => {
