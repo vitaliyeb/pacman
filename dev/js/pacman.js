@@ -6,6 +6,7 @@ export default class Pacman {
         this.counterMounth = undefined;
         this.gameMap = gameMap;
         this.contextMap = contextMap;
+        this.maxX = gameMap[0].length * xs;
         this.ys = ys;
         this.x = x;
         this.y = y;
@@ -17,6 +18,10 @@ export default class Pacman {
         this.aa = Math.PI / 2;
         this.direction = [1, 0]; // x y
         this.anglePacman = 0;
+        this.throughData = {
+            xCol: undefined,
+            xD: undefined
+        };
         this.openMounth = true;
         this.stope = false;
         this.endChangeDirection = undefined;
@@ -70,10 +75,23 @@ export default class Pacman {
 
 
     through(){
-        let { direction: [directionX] } = this;
-        this.x += 1;
-        this.paintPac(50, 50)
-
+        let { direction: [directionX], mapCoord:[row, col], ys, xs, maxX, throughData: { xCol, xD } } = this;
+        let xcol = xCol;
+        let tgx = xD;
+        if ( xCol === undefined ) {
+            xcol = col < 2 ? maxX : 0;
+            tgx = col < 2 ? xs : -xs;
+        }
+        this.x += directionX;
+        this.paintPac(tgx += directionX + xcol, row * ys)
+        if(tgx === 0) {
+            let { mapCoord:[ir, ic] } = this;
+            this.throughData['xD'] = undefined;
+            this.throughData['xCol'] = undefined;
+            this.mapCoord = [ir, xcol < 0 ? ];
+        }
+        this.throughData['xD'] = tgx;
+        this.throughData['xCol'] = xcol;
     }
 
     setPropertyOnClick = (isDirection, x, y) => {
@@ -162,6 +180,6 @@ export default class Pacman {
 
     clearPacman = () => {
         let { c, x, y, xs, ys, r} = this;
-        c.clearRect(x, y-1, xs, ys);
+        c.clearRect(0, 0, 1000, 1000);
     }
 }
