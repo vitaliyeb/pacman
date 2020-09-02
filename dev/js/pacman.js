@@ -75,7 +75,7 @@ export default class Pacman {
 
 
     through(){
-        let { direction: [directionX], mapCoord:[row, col], ys, xs, maxX, throughData: { xCol, xD } } = this;
+        let { direction: [directionX], mapCoord:[row, col], ys, xs, maxX, throughData: { xCol, xD }, gameMap } = this;
         let xcol = xCol;
         let tgx = xD;
         if ( xCol === undefined ) {
@@ -88,7 +88,12 @@ export default class Pacman {
             let { mapCoord:[ir, ic] } = this;
             this.throughData['xD'] = undefined;
             this.throughData['xCol'] = undefined;
-            this.mapCoord = [ir, xcol < 0 ? ];
+
+            this.mapCoord = [ir, xcol > 0 ? gameMap[0].length : 0 ];
+            this.nextMapCoord = [ir, this.mapCoord[1] + directionX];
+            this.x = xcol > 0 ? maxX : 0;
+            console.log(this.mapCoord, this.nextMapCoord)
+            return;
         }
         this.throughData['xD'] = tgx;
         this.throughData['xCol'] = xcol;
