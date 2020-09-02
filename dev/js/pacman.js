@@ -12,7 +12,7 @@ export default class Pacman {
         this.y = y;
         this.nextMapCoord = [ir , ic + 1]
         this.mapCoord = [ir, ic];
-        this.speed = 1;
+        this.speed = 0.5;
         this.angleOpenMounth = (Math.PI / 50 * (xs / 4 * 3)) / 2;
         this.changeCourse = undefined;
         this.aa = Math.PI / 2;
@@ -54,7 +54,7 @@ export default class Pacman {
 
     coolision(v, shift) {
         let { stope, mapCoord:[mapCoordY, mapCoordX] ,gameMap, c, nextMapCoord: [nextMapY, nextMapX], changeCourse } = this;
-
+        
         if(this.checkPassage(nextMapY, nextMapX)){
             if(stope) {
                 this.createCounterMounth();
@@ -63,6 +63,7 @@ export default class Pacman {
             return this[v] += shift;
         }
         if (gameMap[mapCoordY][mapCoordX] === 'X') return this.through();
+        
 
         if(changeCourse){
             let [changeX, changeY] = changeCourse;
@@ -75,15 +76,20 @@ export default class Pacman {
 
 
     through(){
-        let { direction: [directionX], mapCoord:[row, col], ys, xs, maxX, throughData: { xCol, xD }, gameMap } = this;
+        let { direction: [directionX], mapCoord:[row, col], ys, xs, maxX, throughData: { xCol, xD }, gameMap, speed } = this;
+        this.isThrough = true;
         let xcol = xCol;
         let tgx = xD;
+        
         if ( xCol === undefined ) {
             xcol = col < 2 ? maxX : 0;
             tgx = col < 2 ? xs : -xs;
         }
-        this.x += directionX;
-        this.paintPac(tgx += directionX + xcol, row * ys)
+        tgx += directionX * speed;
+        console.log(tgx, xcol);
+        this.x += directionX * speed;
+        this.paintPac( xcol - (25 - tgx) , row * ys)
+  
         if(tgx === 0) {
             let { mapCoord:[ir, ic] } = this;
             this.throughData['xD'] = undefined;
@@ -92,8 +98,7 @@ export default class Pacman {
             this.mapCoord = [ir, xcol > 0 ? gameMap[0].length : 0 ];
             this.nextMapCoord = [ir, this.mapCoord[1] + directionX];
             this.x = xcol > 0 ? maxX : 0;
-            console.log(this.mapCoord, this.nextMapCoord)
-            return;
+            return this.isThrough = false;
         }
         this.throughData['xD'] = tgx;
         this.throughData['xCol'] = xcol;
@@ -110,7 +115,7 @@ export default class Pacman {
                 this.endChangeDirection = x === 0 ? y : x;
             }
         } else {
-            let coords = stope ? [r + y, c + x] : [ir + y, ic + x];
+            let coords = stope ? [r + y, c + x] : [ir + y, ic + x]; 
             if(this.checkPassage(...coords)){
                 return this.changeCourse = [x , y]
             };
