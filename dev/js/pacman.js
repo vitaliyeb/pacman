@@ -12,7 +12,7 @@ export default class Pacman {
         this.y = y;
         this.nextMapCoord = [ir , ic + 1]
         this.mapCoord = [ir, ic];
-        this.speed = 1;
+        this.speed = 0.5;
         this.angleOpenMounth = (Math.PI / 50 * (xs / 4 * 3)) / 2;
         this.changeCourse = undefined;
         this.aa = Math.PI / 2;
@@ -75,15 +75,15 @@ export default class Pacman {
 
 
     through(){
-        let { direction: [directionX], mapCoord:[row, col], ys, xs, maxX, throughData: { xCol, xD }, gameMap } = this;
+        let { direction: [directionX], mapCoord:[row, col], ys, xs, maxX, throughData: { xCol, xD }, gameMap, speed } = this;
         let xcol = xCol;
         let tgx = xD;
         if ( xCol === undefined ) {
             xcol = col < 2 ? maxX : 0;
             tgx = col < 2 ? xs : -xs;
         }
-        this.x += directionX;
-        this.paintPac(tgx += directionX + xcol, row * ys)
+        this.x += speed;
+        this.paintPac(tgx += speed + xcol, row * ys)
         if(tgx === 0) {
             let { mapCoord:[ir, ic] } = this;
             this.throughData['xD'] = undefined;
@@ -142,7 +142,6 @@ export default class Pacman {
 
     move() {
         let {x, y, direction: [ dx, dy], speed, xs, ys, mapCoord: [ir, ic], nextMapCoord: [nir, nic]} = this;
-        
         if(ic !== nic) return this.updateCoords(x , xs * nic, speed * dx, 'x');
         if(ir !== nir) return this.updateCoords(y , ys * nir, speed * dy, 'y');
     }
