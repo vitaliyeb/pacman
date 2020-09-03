@@ -76,14 +76,19 @@ export default class Pacman {
 
     through(){
         let { direction: [directionX], mapCoord:[row, col], ys, xs, maxX, throughData: { xCol, xD }, gameMap, speed } = this;
+        this.isThrough = true;
         let xcol = xCol;
         let tgx = xD;
+
         if ( xCol === undefined ) {
             xcol = col < 2 ? maxX : 0;
             tgx = col < 2 ? xs : -xs;
         }
-        this.x += speed;
-        this.paintPac(tgx += speed + xcol, row * ys)
+        tgx += directionX * speed;
+        console.log(tgx, xcol);
+        this.x += directionX * speed;
+        this.paintPac( xcol - (25 - tgx) , row * ys)
+
         if(tgx === 0) {
             let { mapCoord:[ir, ic] } = this;
             this.throughData['xD'] = undefined;
@@ -92,8 +97,7 @@ export default class Pacman {
             this.mapCoord = [ir, xcol > 0 ? gameMap[0].length : 0 ];
             this.nextMapCoord = [ir, this.mapCoord[1] + directionX];
             this.x = xcol > 0 ? maxX : 0;
-            console.log(this.mapCoord, this.nextMapCoord)
-            return;
+            return this.isThrough = false;
         }
         this.throughData['xD'] = tgx;
         this.throughData['xCol'] = xcol;
@@ -142,6 +146,7 @@ export default class Pacman {
 
     move() {
         let {x, y, direction: [ dx, dy], speed, xs, ys, mapCoord: [ir, ic], nextMapCoord: [nir, nic]} = this;
+        
         if(ic !== nic) return this.updateCoords(x , xs * nic, speed * dx, 'x');
         if(ir !== nir) return this.updateCoords(y , ys * nir, speed * dy, 'y');
     }
