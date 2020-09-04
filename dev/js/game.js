@@ -33,8 +33,10 @@ import Helper from './helper';
     }
     
     function loop() {
-        let { pacman } = entities;
+        let { pacman, shadow } = entities;
         pacman.renderPacMan();
+        shadow.render();
+
         requestAnimationFrame(loop);
     }
 
@@ -44,5 +46,4 @@ import Helper from './helper';
     }
 
     init();
-    console.log(renderMapElements);
 })()

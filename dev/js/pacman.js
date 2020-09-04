@@ -52,7 +52,7 @@ export default class Pacman {
 
     coolision(v, shift) {
         let { stope, mapCoord:[mapCoordY, mapCoordX] ,gameMap, c, nextMapCoord: [nextMapY, nextMapX], changeCourse, isThrough } = this;
-        // console.log(gameMap[mapCoordY][mapCoordX])
+
         if ( isThrough ) this.through();
         if(this.checkPassage(nextMapY, nextMapX)){
             if(stope) {
@@ -80,7 +80,6 @@ export default class Pacman {
 
         this.throughData.startPositionPaint += directionX * speed;
         this.x += directionX * speed;
-        console.log(startPositionPaint , endTrough)
 
         if (startPositionPaint === endTrough) return this.endTrough(endTrough, xs);
 
@@ -102,7 +101,6 @@ export default class Pacman {
     endTrough(endTrough) {
         let { mapCoord: [row, col], gameMap } = this;
         this.x = endTrough;
-        console.log(endTrough)
         this.mapCoord = [ row, endTrough === 0 ? 0 : gameMap[0].length-1]
         this.nextMapCoord = [ row, endTrough === 0 ? 1 : gameMap[0].length-2]
         return this.isThrough = false;

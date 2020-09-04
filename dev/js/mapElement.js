@@ -1,4 +1,5 @@
 import Pacman from './pacman';
+import { ShadowGhost } from './ghost';
 
 export default class RenderMapElements {
     constructor (xs, ys, contextMap, gameMap, contextGame, entities) {
@@ -42,6 +43,11 @@ export default class RenderMapElements {
         this.entities['pacman'] = new Pacman(cg, xs, ys, x, y, ir, ic, gameMap, c);
     }
 
+    'S'(x, y, ir, ic) {
+        let { cg, xs, ys, gameMap, c} = this;
+        this.entities['shadow'] = new ShadowGhost(cg, xs, ys, gameMap, x, y, ir, ic);
+    }
+
     '║'(x, y) {
         return this.rdl(x, y, false);
     }
@@ -55,11 +61,11 @@ export default class RenderMapElements {
     }
 
     '┅'(x, y) {
-        let { c, cy, xs, lineWidth } = this;
+        let { c, cx, ys, lineWidth } = this;
         c.strokeStyle = '#ffb8ff';
         c.lineWidth = lineWidth;
-        c.moveTo(x, y + cy);
-        c.lineTo(x + xs, y + cy);
+        c.moveTo(x + cx, y);
+        c.lineTo(x + cx, y + ys);
     }
 
     '|'(x, y) {
