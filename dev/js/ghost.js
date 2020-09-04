@@ -12,6 +12,7 @@ class ShadowGhost extends  Entries {
         this.ySteep = ySteep;
         this.map = map;
         this.color = "#ff0000";
+        this.type = 'chase'
 
     }
 

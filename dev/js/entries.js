@@ -4,6 +4,9 @@
 export default class Entries {
 
 
+    chase() {
+
+    }
 
     paintGhost(){
         let { contextGame, coordinate: [x, y], color, xSteep, ySteep } = this;
