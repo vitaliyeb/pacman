@@ -2,9 +2,10 @@ import CreateMap from './map';
 import RenderMapElements from './mapElement';
 import Helper from './helper';
 
+
 (() => {
     let canvasMap = document.getElementById('map');
-    let entities = {
+    window.entities = {
         pacman: {}
     };
     let canvasGame = document.getElementById('game');

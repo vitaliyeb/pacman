@@ -44,7 +44,7 @@ export default class RenderMapElements {
     }
 
     'S'(x, y, ir, ic) {
-        let { cg, xs, ys, gameMap, c} = this;
+        let { cg, xs, ys, gameMap, c } = this;
         this.entities['shadow'] = new ShadowGhost(cg, xs, ys, gameMap, x, y, ir, ic);
     }
 

@@ -7,18 +7,16 @@ export default class Entries {
 
     ifTurn() {
         let { nexMapCoord:[nextColumn, nextRow], map, direction: [xDirect, yDirect] } = this;
-        console.log(nextColumn, nextRow)
-        let turn =  [
-            yDirect === 0 ? [nextRow - 1, nextColumn] : false,
-            xDirect === 0 ? [nextRow, nextColumn + 1] : false,
-            yDirect === 0 ? [nextRow + 1, nextColumn] : false,
-            xDirect === 0 ? [nextRow, nextColumn - 1] : false,
+
+        return [
+            [nextRow - 1, nextColumn],
+            [nextRow, nextColumn + 1],
+            [nextRow + 1, nextColumn],
+            [nextRow, nextColumn - 1],
         ].filter((el)=>{
-            if (!el) return ;
             let mapElem = map[el[0]][el[1]];
             return mapElem === '@' || mapElem === '#';
         });
-        return !turn.length ? false : turn;
     }
 
     move() {
@@ -36,14 +34,19 @@ export default class Entries {
 
         if (nexCoordInt != currentCoord) return this.coordinate[posCoord] = currentCoord + speed * directionInt;
 
-        this.setNextCoord();
+        this.setNextCoord(1 - posCoord, nextMapCoord);
 
     }
 
-    setNextCoord() {
+    setNextCoord(posCoord, nextMapCoordInt) {
         let turn = this.ifTurn();
-        if (!turn) this.proceedMotion();
+        let turnOtside = turn.filter(el=> el[posCoord] === nextMapCoordInt);
+        if (!turnOtside.length) return this.proceedMotion();
 
+        switch (this.type){
+            case 'chase':
+                return this.chase(turn);
+        }
     }
 
     proceedMotion() {
@@ -53,9 +56,17 @@ export default class Entries {
     }
 
 
-    chase() {
+    chase(turn) {
+        let { nextMapCoord, mapCoord, stope } = entities['pacman'];
+        let pacmanCord = stope ? mapCoord : nextMapCoord;
+
+        console.log(turn)
+
 
     }
+
+
+
 
     paintGhost(){
         let { contextGame, coordinate: [x, y], color, xSteep, ySteep } = this;

@@ -3,7 +3,7 @@ import Entries from "./entries";
 
 
 class ShadowGhost extends  Entries {
-    constructor( contextGame, xSteep, ySteep, map, x, y, ir, ic) {
+    constructor( contextGame, xSteep, ySteep, map, x, y, ir, ic ) {
         super();
         this.contextGame = contextGame;
         this.coordinate = [x, y];
