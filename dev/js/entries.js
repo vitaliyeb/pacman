@@ -6,7 +6,7 @@ export default class Entries {
 
 
     ifTurn() {
-        let { nexMapCoord:[nextColumn, nextRow], map, direction: [xDirect, yDirect] } = this;
+        let { nexMapCoord:[nextRow, nextColumn], map } = this;
 
         return [
             [nextRow - 1, nextColumn],
@@ -20,9 +20,9 @@ export default class Entries {
     }
 
     move() {
-        let { mapCoordiante:[column, row], nexMapCoord:[nextColumn, nextRow], xSteep, ySteep } = this;
-        if ( column != nextColumn ) this.updateCoord( 0, nextColumn, xSteep );
-        if ( row != nextRow ) this.updateCoord( 1, nextRow, ySteep );
+        let { mapCoordiante:[row, column], nexMapCoord:[nextRow, nextColumn], xSteep, ySteep } = this;
+        if ( column != nextColumn ) this.updateCoord( 1, nextColumn, xSteep );
+        if ( row != nextRow ) this.updateCoord( 0, nextRow, ySteep );
 
     }
 
@@ -34,12 +34,13 @@ export default class Entries {
 
         if (nexCoordInt != currentCoord) return this.coordinate[posCoord] = currentCoord + speed * directionInt;
 
-        this.setNextCoord(1 - posCoord, nextMapCoord);
+        this.setNextCoord(posCoord, nextMapCoord);
 
     }
 
     setNextCoord(posCoord, nextMapCoordInt) {
         let turn = this.ifTurn();
+
         let turnOtside = turn.filter(el=> el[posCoord] === nextMapCoordInt);
         if (!turnOtside.length) return this.proceedMotion();
 
@@ -50,17 +51,22 @@ export default class Entries {
     }
 
     proceedMotion() {
-        let { mapCoordiante:[column, row], nexMapCoord: [ nextCol, nextRow ], direction: [xDirect, yDirect] } = this;
-        this.nexMapCoord = [nextCol + xDirect, nextRow + yDirect];
-        this.mapCoordiante = [nextCol, nextRow];
+        let { nexMapCoord: [ nextRow, nextCol ], direction: [yDirect, xDirect] } = this;
+        this.nexMapCoord = [nextRow + yDirect, nextCol + xDirect];
+        this.mapCoordiante = [nextRow, nextCol];
     }
 
 
     chase(turn) {
+        let { mapCoordiante } = this;
         let { nextMapCoord, mapCoord, stope } = entities['pacman'];
         let pacmanCord = stope ? mapCoord : nextMapCoord;
+        //r c
 
-        console.log(turn)
+
+
+
+        // console.log(turn, pacmanCord, mapCoordiante)
 
 
     }
@@ -69,7 +75,7 @@ export default class Entries {
 
 
     paintGhost(){
-        let { contextGame, coordinate: [x, y], color, xSteep, ySteep } = this;
+        let { contextGame, coordinate: [y, x], color, xSteep, ySteep } = this;
 
         contextGame.beginPath();
         contextGame.fillStyle = color;
