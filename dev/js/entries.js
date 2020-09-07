@@ -4,6 +4,55 @@
 export default class Entries {
 
 
+
+    ifTurn() {
+        let { nexMapCoord:[nextColumn, nextRow], map, direction: [xDirect, yDirect] } = this;
+        console.log(nextColumn, nextRow)
+        let turn =  [
+            yDirect === 0 ? [nextRow - 1, nextColumn] : false,
+            xDirect === 0 ? [nextRow, nextColumn + 1] : false,
+            yDirect === 0 ? [nextRow + 1, nextColumn] : false,
+            xDirect === 0 ? [nextRow, nextColumn - 1] : false,
+        ].filter((el)=>{
+            if (!el) return ;
+            let mapElem = map[el[0]][el[1]];
+            return mapElem === '@' || mapElem === '#';
+        });
+        return !turn.length ? false : turn;
+    }
+
+    move() {
+        let { mapCoordiante:[column, row], nexMapCoord:[nextColumn, nextRow], xSteep, ySteep } = this;
+        if ( column != nextColumn ) this.updateCoord( 0, nextColumn, xSteep );
+        if ( row != nextRow ) this.updateCoord( 1, nextRow, ySteep );
+
+    }
+
+    updateCoord( posCoord, nextMapCoord, steep ) {
+        let { speed, coordinate, direction } = this;
+        let currentCoord = coordinate[posCoord];
+        let nexCoordInt = nextMapCoord * steep;
+        let directionInt = direction[posCoord];
+
+        if (nexCoordInt != currentCoord) return this.coordinate[posCoord] = currentCoord + speed * directionInt;
+
+        this.setNextCoord();
+
+    }
+
+    setNextCoord() {
+        let turn = this.ifTurn();
+        if (!turn) this.proceedMotion();
+
+    }
+
+    proceedMotion() {
+        let { mapCoordiante:[column, row], nexMapCoord: [ nextCol, nextRow ], direction: [xDirect, yDirect] } = this;
+        this.nexMapCoord = [nextCol + xDirect, nextRow + yDirect];
+        this.mapCoordiante = [nextCol, nextRow];
+    }
+
+
     chase() {
 
     }
