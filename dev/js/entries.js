@@ -58,20 +58,25 @@ export default class Entries {
 
 
     chase(turn) {
-        let { mapCoordiante } = this;
+        let { mapCoordiante, nexMapCoord: [ghostRow, ghostColumn] } = this;
         let { nextMapCoord, mapCoord, stope } = entities['pacman'];
-        let pacmanCord = stope ? mapCoord : nextMapCoord;
-        //r c
+        let [ pacmanRow, pacmanCol ] = stope ? mapCoord : nextMapCoord;
 
+        let vPath = ghostRow < pacmanRow ? this.verticalPath(turn, true, ghostRow, pacmanRow) : this.verticalPath(turn, false, ghostRow, pacmanRow);
+        let gPath = ghostColumn < pacmanCol ? this.gorizontalPath(turn,true, ghostColumn, pacmanCol) : this.gorizontalPath(turn, false, ghostColumn, pacmanCol);
 
-
-
-        // console.log(turn, pacmanCord, mapCoordiante)
-
-
+        console.log(turn, vPath, gPath )
     }
 
+    verticalPath(turn, isBottom, ghostRow, pacmanRow) {
+        if (pacmanRow === ghostRow) return false;
+        return isBottom ? turn.filter(([r]) => ghostRow < r) : turn.filter(([r]) => ghostRow > r);
+    }
 
+    gorizontalPath(turn, isLeft, ghostColumn, pacmanCol) {
+        if (ghostColumn === pacmanCol) return false;
+        return isLeft ? turn.filter(([, c]) => ghostColumn < c) : turn.filter(([, c]) => ghostColumn > c);
+    }
 
 
     paintGhost(){
