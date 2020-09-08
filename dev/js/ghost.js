@@ -16,6 +16,7 @@ class ShadowGhost extends  Entries {
         this.color = "#ff0000";
         this.direction = [ 1, 0]; //y, x
         this.type = 'chase'
+        this.changeType = false;
     }
 
 

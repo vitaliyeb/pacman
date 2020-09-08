@@ -55,7 +55,7 @@ export default class Entries {
 
 
     chase(turn) {
-        let { mapCoordiante, nexMapCoord: [ghostRow, ghostColumn], map, direction: [rowDirect, colDirect]  } = this;
+        let { nexMapCoord: [ghostRow, ghostColumn], changeType } = this;
         let { nextMapCoord, mapCoord, stope } = entities['pacman'];
         let [ pacmanRow, pacmanCol ] = stope ? mapCoord : nextMapCoord;
         let isBottom = ghostRow < pacmanRow;
@@ -79,9 +79,17 @@ export default class Entries {
         gPath = isLeft ? this.gorizontalPath(turn,false, ghostColumn, pacmanCol) : this.gorizontalPath(turn, true, ghostColumn, pacmanCol);
         vPath = isBottom ? this.verticalPath(turn, true, ghostRow, pacmanRow) : this.verticalPath(turn, false, ghostRow, pacmanRow);
         let paths = [...gPath, ...vPath];
-        let path = paths[Math.floor(Math.random()*paths.length)];
-
-        return this.setNewParamsMove(path.d, path.nc, this.nexMapCoord);
+        if (paths.length){
+            let path = paths[Math.floor(Math.random()*paths.length)];
+            return this.setNewParamsMove(path.d, path.nc, this.nexMapCoord);
+        }
+        console.log('s',paths)
+        // if (changeType){
+        //
+        // }
+        let { mapCoordiante: [row, col] } = this;
+        let transition = turn.filter((el)=> el.nc[0] !== row && el.nc[1] !== col);
+        return this.setNewParamsMove(transition[0].d, transition[0].nc, this.nexMapCoord);
     }
 
     hitTheWall(turn, pos, gsc) {
