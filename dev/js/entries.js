@@ -9,11 +9,11 @@ export default class Entries {
         let { nexMapCoord:[nextRow, nextColumn], map } = this;
 
         return [
-            [nextRow - 1, nextColumn],
-            [nextRow, nextColumn + 1],
-            [nextRow + 1, nextColumn],
-            [nextRow, nextColumn - 1],
-        ].filter((el)=> this.checkElementPermeability(map[el[0]][el[1]]));
+            {nc: [nextRow - 1, nextColumn], d:[-1, 0] },
+            {nc: [nextRow, nextColumn + 1], d:[0, 1] },
+            {nc: [nextRow + 1, nextColumn], d:[1, 0] },
+            {nc: [nextRow, nextColumn - 1], d:[0, -1] },
+        ].filter((el)=> this.checkElementPermeability(map[el.nc[0]][el.nc[1]]));
     }
 
     move() {
@@ -38,7 +38,7 @@ export default class Entries {
     setNextCoord(posCoord, nextMapCoordInt) {
         let turn = this.ifTurn();
 
-        let turnOtside = turn.filter(el=> el[posCoord] === nextMapCoordInt);
+        let turnOtside = turn.filter(el=> el.nc[posCoord] === nextMapCoordInt);
         if (!turnOtside.length) return this.proceedMotion();
 
         switch (this.type){
@@ -66,21 +66,27 @@ export default class Entries {
 
         if (pacmanRow === ghostRow){
             gPath = isLeft ? this.gorizontalPath(turn,false, ghostColumn, pacmanCol) : this.gorizontalPath(turn, true, ghostColumn, pacmanCol);
-            if (gPath.length) return this.setNewParamsMove(isLeft ? [0, -1] : [0, 1], ...gPath, this.nexMapCoord);
-            let variableNextCoord = this.filtrCurrentPlane(turn, 1, ghostColumn);
-            let nextPath = variableNextCoord[Math.floor(Math.random()*variableNextCoord.length)];
-            this.setNewParamsMove(nextPath[0] > ghostRow ? [1, 0] : [-1, 0], nextPath, this.nexMapCoord)
+            if (gPath.length) return this.setNewParamsMove(gPath[0].d, gPath[0].nc, this.nexMapCoord);
+            return this.hitTheWall(turn, 1, ghostColumn);
         }
 
         if(ghostColumn === pacmanCol){
             vPath = isBottom ? this.verticalPath(turn, true, ghostRow, pacmanRow) : this.verticalPath(turn, false, ghostRow, pacmanRow);
-            if (vPath.length) return this.setNewParamsMove(isBottom ? [1, 0] : [-1, 0], ...vPath, this.nexMapCoord);
-            let variableNextCoord = this.filtrCurrentPlane(turn, 0, ghostRow);
-            let nextPath = variableNextCoord[Math.floor(Math.random()*variableNextCoord.length)];
-            this.setNewParamsMove(nextPath[1] > ghostColumn ? [0, 1] : [0, -1], nextPath, this.nexMapCoord)
+            if (vPath.length) return this.setNewParamsMove(vPath[0].d, vPath[0].nc, this.nexMapCoord);
+            return this.hitTheWall(turn, 0, ghostRow);
         }
 
+        gPath = isLeft ? this.gorizontalPath(turn,false, ghostColumn, pacmanCol) : this.gorizontalPath(turn, true, ghostColumn, pacmanCol);
+        vPath = isBottom ? this.verticalPath(turn, true, ghostRow, pacmanRow) : this.verticalPath(turn, false, ghostRow, pacmanRow);
+
     }
+
+    hitTheWall(turn, pos, gsc) {
+        let variableNextCoord = this.filtrCurrentPlane(turn, pos, gsc);
+        let nextPath = variableNextCoord[Math.floor(Math.random()*variableNextCoord.length)];
+        return this.setNewParamsMove(nextPath.d, nextPath.nc, this.nexMapCoord)
+    }
+
 
     setNewParamsMove(direction, nextCoord, currentCoord) {
         this.mapCoordiante = currentCoord;
@@ -93,15 +99,15 @@ export default class Entries {
     }
 
     filtrCurrentPlane(turn, pos, verifiable) {
-        return turn.filter(turn => turn[pos] === verifiable)
+        return turn.filter(turn => turn.nc[pos] === verifiable)
     }
 
     verticalPath(turn, isBottom, ghostRow) {
-        return isBottom ? turn.filter(([r]) => ghostRow < r) : turn.filter(([r]) => ghostRow > r);
+        return isBottom ? turn.filter(({nc:[r]}) => ghostRow < r) : turn.filter(([r]) => ghostRow > r);
     }
 
     gorizontalPath(turn, isLeft, ghostColumn) {
-        return isLeft ? turn.filter(([, c]) => ghostColumn < c) : turn.filter(([, c]) => ghostColumn > c);
+        return isLeft ? turn.filter(({nc:[, c]}) => ghostColumn < c) : turn.filter(([, c]) => ghostColumn > c);
     }
 
 
