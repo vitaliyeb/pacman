@@ -78,7 +78,10 @@ export default class Entries {
 
         gPath = isLeft ? this.gorizontalPath(turn,false, ghostColumn, pacmanCol) : this.gorizontalPath(turn, true, ghostColumn, pacmanCol);
         vPath = isBottom ? this.verticalPath(turn, true, ghostRow, pacmanRow) : this.verticalPath(turn, false, ghostRow, pacmanRow);
+        let paths = [...gPath, ...vPath];
+        let path = paths[Math.floor(Math.random()*paths.length)];
 
+        return this.setNewParamsMove(path.d, path.nc, this.nexMapCoord);
     }
 
     hitTheWall(turn, pos, gsc) {
@@ -86,7 +89,6 @@ export default class Entries {
         let nextPath = variableNextCoord[Math.floor(Math.random()*variableNextCoord.length)];
         return this.setNewParamsMove(nextPath.d, nextPath.nc, this.nexMapCoord)
     }
-
 
     setNewParamsMove(direction, nextCoord, currentCoord) {
         this.mapCoordiante = currentCoord;
