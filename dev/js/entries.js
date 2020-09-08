@@ -13,10 +13,7 @@ export default class Entries {
             [nextRow, nextColumn + 1],
             [nextRow + 1, nextColumn],
             [nextRow, nextColumn - 1],
-        ].filter((el)=>{
-            let mapElem = map[el[0]][el[1]];
-            return mapElem === '@' || mapElem === '#';
-        });
+        ].filter((el)=> this.checkElementPermeability(map[el[0]][el[1]]));
     }
 
     move() {
@@ -58,23 +55,52 @@ export default class Entries {
 
 
     chase(turn) {
-        let { mapCoordiante, nexMapCoord: [ghostRow, ghostColumn] } = this;
+        let { mapCoordiante, nexMapCoord: [ghostRow, ghostColumn], map, direction: [rowDirect, colDirect]  } = this;
         let { nextMapCoord, mapCoord, stope } = entities['pacman'];
         let [ pacmanRow, pacmanCol ] = stope ? mapCoord : nextMapCoord;
+        let isBottom = ghostRow < pacmanRow;
+        let isLeft = ghostColumn > pacmanCol;
 
-        let vPath = ghostRow < pacmanRow ? this.verticalPath(turn, true, ghostRow, pacmanRow) : this.verticalPath(turn, false, ghostRow, pacmanRow);
-        let gPath = ghostColumn < pacmanCol ? this.gorizontalPath(turn,true, ghostColumn, pacmanCol) : this.gorizontalPath(turn, false, ghostColumn, pacmanCol);
+        let vPath;
+        let gPath;
 
-        console.log(turn, vPath, gPath )
+        if (pacmanRow === ghostRow){
+            gPath = isLeft ? this.gorizontalPath(turn,false, ghostColumn, pacmanCol) : this.gorizontalPath(turn, true, ghostColumn, pacmanCol);
+            if (gPath.length) return this.setNewParamsMove(isLeft ? [0, -1] : [0, 1], ...gPath, this.nexMapCoord);
+            let variableNextCoord = this.filtrCurrentPlane(turn, 1, ghostColumn);
+            let nextPath = variableNextCoord[Math.floor(Math.random()*variableNextCoord.length)];
+            this.setNewParamsMove(nextPath[0] > ghostRow ? [1, 0] : [-1, 0], nextPath, this.nexMapCoord)
+        }
+
+        if(ghostColumn === pacmanCol){
+            vPath = isBottom ? this.verticalPath(turn, true, ghostRow, pacmanRow) : this.verticalPath(turn, false, ghostRow, pacmanRow);
+            if (vPath.length) return this.setNewParamsMove(isBottom ? [1, 0] : [-1, 0], ...vPath, this.nexMapCoord);
+            let variableNextCoord = this.filtrCurrentPlane(turn, 0, ghostRow);
+            let nextPath = variableNextCoord[Math.floor(Math.random()*variableNextCoord.length)];
+            this.setNewParamsMove(nextPath[1] > ghostColumn ? [0, 1] : [0, -1], nextPath, this.nexMapCoord)
+        }
+
     }
 
-    verticalPath(turn, isBottom, ghostRow, pacmanRow) {
-        if (pacmanRow === ghostRow) return false;
+    setNewParamsMove(direction, nextCoord, currentCoord) {
+        this.mapCoordiante = currentCoord;
+        this.nexMapCoord = nextCoord;
+        this.direction = direction;
+    }
+
+    checkElementPermeability(element) {
+        return element === '@' || element === '#';
+    }
+
+    filtrCurrentPlane(turn, pos, verifiable) {
+        return turn.filter(turn => turn[pos] === verifiable)
+    }
+
+    verticalPath(turn, isBottom, ghostRow) {
         return isBottom ? turn.filter(([r]) => ghostRow < r) : turn.filter(([r]) => ghostRow > r);
     }
 
-    gorizontalPath(turn, isLeft, ghostColumn, pacmanCol) {
-        if (ghostColumn === pacmanCol) return false;
+    gorizontalPath(turn, isLeft, ghostColumn) {
         return isLeft ? turn.filter(([, c]) => ghostColumn < c) : turn.filter(([, c]) => ghostColumn > c);
     }
 
