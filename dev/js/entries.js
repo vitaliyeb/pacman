@@ -64,6 +64,8 @@ export default class Entries {
         let vPath;
         let gPath;
 
+
+
         if (pacmanRow === ghostRow){
             gPath = isLeft ? this.gorizontalPath(turn,false, ghostColumn, pacmanCol) : this.gorizontalPath(turn, true, ghostColumn, pacmanCol);
             if (gPath.length) return this.setNewParamsMove(gPath[0].d, gPath[0].nc, this.nexMapCoord);
@@ -75,15 +77,17 @@ export default class Entries {
             if (vPath.length) return this.setNewParamsMove(vPath[0].d, vPath[0].nc, this.nexMapCoord);
             return this.hitTheWall(turn, 0, ghostRow);
         }
-
-        gPath = isLeft ? this.gorizontalPath(turn,false, ghostColumn, pacmanCol) : this.gorizontalPath(turn, true, ghostColumn, pacmanCol);
-        vPath = isBottom ? this.verticalPath(turn, true, ghostRow, pacmanRow) : this.verticalPath(turn, false, ghostRow, pacmanRow);
+        console.log(gPath,isLeft, 's')
+        gPath = this.gorizontalPath(turn, isLeft, ghostColumn, pacmanCol);
+        console.log(gPath)
+        vPath = this.verticalPath(turn, isBottom, ghostRow, pacmanRow);
         let paths = [...gPath, ...vPath];
+
         if (paths.length){
             let path = paths[Math.floor(Math.random()*paths.length)];
             return this.setNewParamsMove(path.d, path.nc, this.nexMapCoord);
         }
-        console.log('s',paths)
+
         // if (changeType){
         //
         // }
@@ -113,11 +117,11 @@ export default class Entries {
     }
 
     verticalPath(turn, isBottom, ghostRow) {
-        return isBottom ? turn.filter(({nc:[r]}) => ghostRow < r) : turn.filter(([r]) => ghostRow > r);
+        return isBottom ? turn.filter(({nc:[r]}) => ghostRow < r) : turn.filter(({nc:[r]}) => ghostRow > r);
     }
 
     gorizontalPath(turn, isLeft, ghostColumn) {
-        return isLeft ? turn.filter(({nc:[, c]}) => ghostColumn < c) : turn.filter(([, c]) => ghostColumn > c);
+        return isLeft ? turn.filter(({nc:[, c]}) => ghostColumn > c) : turn.filter(({nc:[, c]}) => ghostColumn < c);
     }
 
 
