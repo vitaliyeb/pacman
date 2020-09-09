@@ -1,7 +1,7 @@
 import CreateMap from './map';
 import RenderMapElements from './mapElement';
 import Helper from './helper';
-import { ShadowGhost } from './ghost';
+import { ShadowGhost, PinkiGhost } from './ghost';
 
 (() => {
     let canvasMap = document.getElementById('map');
@@ -35,16 +35,21 @@ import { ShadowGhost } from './ghost';
     }
 
     function initGhost() {
-        let { ghostPosition: { shadow:[ ir, ic] }  } = _configCanvas;
-        entities['shadow'] = new ShadowGhost(gameContext, xs, ys, gameMap, xs*ic, ys*ir, ir, ic);
+        let { ghostPosition: {
+            pinki:[ irPinki, icPinki],
+            shadow:[ irShadow, icShadow]
+        }  } = _configCanvas;
+
+        entities['shadow'] = new ShadowGhost(gameContext, xs, ys, gameMap, xs*icShadow, ys*irShadow, irShadow, icShadow);
+        entities['pinki'] = new PinkiGhost(gameContext, xs, ys, gameMap, xs*icPinki, ys*irPinki, irPinki, icPinki);
     }
     
     function loop() {
-        let { pacman, shadow } = entities;
+        let { pacman, shadow, pinki } = entities;
         if (!_configCanvas.game.play) return;
         pacman.renderPacMan();
         shadow.render();
-
+        pinki.render();
         requestAnimationFrame(loop);
     }
 

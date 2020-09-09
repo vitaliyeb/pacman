@@ -62,7 +62,6 @@ export default class Entries {
         let { nextMapCoord, mapCoord, stope } = entities['pacman'];
         let [ pacmanRow, pacmanCol ] = stope ? mapCoord : nextMapCoord;
         this.goToThePoint(turn, pacmanRow, pacmanCol);
-
     }
 
     fright(turn) {
