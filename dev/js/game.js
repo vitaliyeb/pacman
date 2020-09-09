@@ -1,7 +1,7 @@
 import CreateMap from './map';
 import RenderMapElements from './mapElement';
 import Helper from './helper';
-
+import { ShadowGhost } from './ghost';
 
 (() => {
     let canvasMap = document.getElementById('map');
@@ -32,6 +32,11 @@ import Helper from './helper';
             });
         });
     }
+
+    function initGhost() {
+        let { ghostPosition: { shadow:[ ir, ic] }  } = _configCanvas;
+        entities['shadow'] = new ShadowGhost(gameContext, xs, ys, gameMap, xs*ic, ys*ir, ir, ic);
+    }
     
     function loop() {
         let { pacman, shadow } = entities;
@@ -43,6 +48,7 @@ import Helper from './helper';
 
     function init() {
         renderMap();
+        initGhost();
         loop();
     }
 

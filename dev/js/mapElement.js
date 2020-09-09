@@ -43,11 +43,6 @@ export default class RenderMapElements {
         this.entities['pacman'] = new Pacman(cg, xs, ys, x, y, ir, ic, gameMap, c);
     }
 
-    'S'(x, y, ir, ic) {
-        let { cg, xs, ys, gameMap, c } = this;
-        this.entities['shadow'] = new ShadowGhost(cg, xs, ys, gameMap, x, y, ir, ic);
-    }
-
     '║'(x, y) {
         return this.rdl(x, y, false);
     }
