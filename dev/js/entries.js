@@ -55,7 +55,7 @@ export default class Entries {
 
 
     chase(turn) {
-        let { nexMapCoord: [ghostRow, ghostColumn], changeType } = this;
+        let { nexMapCoord: [ghostRow, ghostColumn], changeType, mapCoordiante: [row, col] } = this;
         let { nextMapCoord, mapCoord, stope } = entities['pacman'];
         let [ pacmanRow, pacmanCol ] = stope ? mapCoord : nextMapCoord;
         let isBottom = ghostRow < pacmanRow;
@@ -64,22 +64,24 @@ export default class Entries {
         let vPath;
         let gPath;
 
-
+        if (!changeType) turn = turn.filter((el)=> el.nc[0] !== row || el.nc[1] !== col);
 
         if (pacmanRow === ghostRow){
-            gPath = isLeft ? this.gorizontalPath(turn,false, ghostColumn, pacmanCol) : this.gorizontalPath(turn, true, ghostColumn, pacmanCol);
+
+            gPath = this.gorizontalPath(turn,isLeft, ghostColumn, pacmanCol);
+
             if (gPath.length) return this.setNewParamsMove(gPath[0].d, gPath[0].nc, this.nexMapCoord);
             return this.hitTheWall(turn, 1, ghostColumn);
         }
 
         if(ghostColumn === pacmanCol){
-            vPath = isBottom ? this.verticalPath(turn, true, ghostRow, pacmanRow) : this.verticalPath(turn, false, ghostRow, pacmanRow);
+            vPath = this.verticalPath(turn, isBottom, ghostRow, pacmanRow);
             if (vPath.length) return this.setNewParamsMove(vPath[0].d, vPath[0].nc, this.nexMapCoord);
             return this.hitTheWall(turn, 0, ghostRow);
         }
-        console.log(gPath,isLeft, 's')
+
         gPath = this.gorizontalPath(turn, isLeft, ghostColumn, pacmanCol);
-        console.log(gPath)
+
         vPath = this.verticalPath(turn, isBottom, ghostRow, pacmanRow);
         let paths = [...gPath, ...vPath];
 
@@ -90,9 +92,9 @@ export default class Entries {
 
         // if (changeType){
         //
-        // }
-        let { mapCoordiante: [row, col] } = this;
-        let transition = turn.filter((el)=> el.nc[0] !== row && el.nc[1] !== col);
+        //
+
+        let transition = turn.filter((el)=> el.nc[0] !== row || el.nc[1] !== col);
         return this.setNewParamsMove(transition[0].d, transition[0].nc, this.nexMapCoord);
     }
 
