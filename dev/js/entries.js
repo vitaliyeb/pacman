@@ -67,7 +67,6 @@ export default class Entries {
         if (!changeType) turn = turn.filter((el)=> el.nc[0] !== row || el.nc[1] !== col);
 
         if (pacmanRow === ghostRow){
-
             gPath = this.gorizontalPath(turn,isLeft, ghostColumn, pacmanCol);
 
             if (gPath.length) return this.setNewParamsMove(gPath[0].d, gPath[0].nc, this.nexMapCoord);
@@ -101,7 +100,8 @@ export default class Entries {
     hitTheWall(turn, pos, gsc) {
         let variableNextCoord = this.filtrCurrentPlane(turn, pos, gsc);
         let nextPath = variableNextCoord[Math.floor(Math.random()*variableNextCoord.length)];
-        return this.setNewParamsMove(nextPath.d, nextPath.nc, this.nexMapCoord)
+        if (nextPath) return this.setNewParamsMove(nextPath.d, nextPath.nc, this.nexMapCoord)
+        return this.setNewParamsMove(turn[0].d, turn[0].nc, this.nexMapCoord)
     }
 
     setNewParamsMove(direction, nextCoord, currentCoord) {
