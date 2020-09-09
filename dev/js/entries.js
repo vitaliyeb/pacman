@@ -55,33 +55,39 @@ export default class Entries {
 
 
     chase(turn) {
-        let { nexMapCoord: [ghostRow, ghostColumn], changeType, mapCoordiante: [row, col] } = this;
         let { nextMapCoord, mapCoord, stope } = entities['pacman'];
         let [ pacmanRow, pacmanCol ] = stope ? mapCoord : nextMapCoord;
-        let isBottom = ghostRow < pacmanRow;
-        let isLeft = ghostColumn > pacmanCol;
+        this.goToThePoint(turn, pacmanRow, pacmanCol);
+
+    }
+
+    goToThePoint(turn, targetRow, targetColumn) {
+        let { nexMapCoord: [ghostRow, ghostColumn], changeType, mapCoordiante: [row, col] } = this;
+
+        let isBottom = ghostRow < targetRow;
+        let isLeft = ghostColumn > targetColumn;
 
         let vPath;
         let gPath;
 
         if (!changeType) turn = turn.filter((el)=> el.nc[0] !== row || el.nc[1] !== col);
 
-        if (pacmanRow === ghostRow){
-            gPath = this.gorizontalPath(turn,isLeft, ghostColumn, pacmanCol);
+        if (targetRow === ghostRow){
+            gPath = this.gorizontalPath(turn,isLeft, ghostColumn, targetColumn);
 
             if (gPath.length) return this.setNewParamsMove(gPath[0].d, gPath[0].nc, this.nexMapCoord);
             return this.hitTheWall(turn, 1, ghostColumn);
         }
 
-        if(ghostColumn === pacmanCol){
-            vPath = this.verticalPath(turn, isBottom, ghostRow, pacmanRow);
+        if(ghostColumn === targetColumn){
+            vPath = this.verticalPath(turn, isBottom, ghostRow, targetRow);
             if (vPath.length) return this.setNewParamsMove(vPath[0].d, vPath[0].nc, this.nexMapCoord);
             return this.hitTheWall(turn, 0, ghostRow);
         }
 
-        gPath = this.gorizontalPath(turn, isLeft, ghostColumn, pacmanCol);
+        gPath = this.gorizontalPath(turn, isLeft, ghostColumn, targetColumn);
 
-        vPath = this.verticalPath(turn, isBottom, ghostRow, pacmanRow);
+        vPath = this.verticalPath(turn, isBottom, ghostRow, targetRow);
         let paths = [...gPath, ...vPath];
 
         if (paths.length){
