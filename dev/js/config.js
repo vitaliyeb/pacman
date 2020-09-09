@@ -6,6 +6,9 @@
         h: window.innerHeight,
         ghostPosition: {
             shadow: [14, 9]
+        },
+        game: {
+            play: true
         }
     }
 })()

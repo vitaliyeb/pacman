@@ -40,6 +40,7 @@ import { ShadowGhost } from './ghost';
     
     function loop() {
         let { pacman, shadow } = entities;
+        if (!_configCanvas.game.play) return;
         pacman.renderPacMan();
         shadow.render();
 

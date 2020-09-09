@@ -132,6 +132,14 @@ export default class Entries {
         return isLeft ? turn.filter(({nc:[, c]}) => ghostColumn > c) : turn.filter(({nc:[, c]}) => ghostColumn < c);
     }
 
+    touchPacman() {
+       let { coordinate:[ghostY, ghostX], xSteep, ySteep } = this;
+       let { pacman: { x, y} } = entities;
+       if (ghostY + ySteep > y &&  ghostY < y + ySteep && ghostX + xSteep > x &&  ghostX < x + xSteep){
+           _configCanvas.game.play = false;
+       }
+        // console.log(ghostY, ghostX, x, y, xSteep, ySteep)
+    }
 
     paintGhost(){
         let { contextGame, coordinate: [y, x], color, xSteep, ySteep } = this;

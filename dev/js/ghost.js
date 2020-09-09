@@ -22,9 +22,9 @@ class ShadowGhost extends  Entries {
 
     render() {
 
-        super.paintGhost();
-
-        super.move();
+        this.paintGhost();
+        this.move();
+        this.touchPacman();
 
     }
 

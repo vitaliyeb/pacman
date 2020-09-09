@@ -25,7 +25,7 @@ export default class Pacman {
         this.color = '#ffff00';
         this.isThrough = false;
         this.name = 'pac man';
-        this.r = xs < ys ? Math.floor(xs / 2) - 1 : Math.floor(ys / 2) - 1;
+        this.r = xs < ys ? Math.floor(xs / 2) : Math.floor(ys / 2);
         this.createCounterMounth();
         this.keyEventId = window.addEventListener('keydown', ({code})=>{
             let { direction: [xd , yd], setPropertyOnClick, isThrough } = this;
