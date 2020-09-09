@@ -15,8 +15,9 @@ class ShadowGhost extends  Entries {
         this.speed = 1;
         this.map = map;
         this.color = "#ff0000";
+        // this.color = "#5d5db2";
         this.direction = [ 1, 0]; //y, x
-        this.type = 'diffusion'
+        this.type = 'fright'
         this.changeType = false;
     }
 

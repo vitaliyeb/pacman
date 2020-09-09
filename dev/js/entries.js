@@ -46,6 +46,8 @@ export default class Entries {
                 return this.chase(turn);
             case 'diffusion':
                 return this.diffusion(turn);
+            case 'fright':
+                return this.fright(turn);
         }
     }
 
@@ -61,6 +63,13 @@ export default class Entries {
         let [ pacmanRow, pacmanCol ] = stope ? mapCoord : nextMapCoord;
         this.goToThePoint(turn, pacmanRow, pacmanCol);
 
+    }
+
+    fright(turn) {
+        let { mapCoordiante: [row, col] } = this;
+        turn = turn.filter((el)=> el.nc[0] !== row || el.nc[1] !== col);
+        let nextPath = turn[Math.floor(Math.random()*turn.length)];
+        return this.setNewParamsMove(nextPath.d, nextPath.nc, this.nexMapCoord)
     }
 
     diffusion(turn) {
@@ -149,7 +158,7 @@ export default class Entries {
     }
 
     paintGhost(){
-        let { contextGame, coordinate: [y, x], color, xSteep, ySteep } = this;
+        let { contextGame, coordinate: [y, x], color, xSteep, ySteep, type } = this;
 
         contextGame.beginPath();
         contextGame.fillStyle = color;
@@ -181,7 +190,6 @@ export default class Entries {
             contextGame.arc( 0, 0, ySteep / 8 / 2, 0, Math.PI * 2 );
             contextGame.fill();
             contextGame.restore();
-
         });
     }
 
