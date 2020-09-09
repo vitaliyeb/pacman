@@ -7,6 +7,7 @@
         ghostPosition: {
             shadow: [14, 9],
             pinki: [14, 9],
+            inki: [14, 9],
         },
         game: {
             play: true,
