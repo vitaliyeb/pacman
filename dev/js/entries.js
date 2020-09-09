@@ -44,6 +44,8 @@ export default class Entries {
         switch (this.type){
             case 'chase':
                 return this.chase(turn);
+            case 'diffusion':
+                return this.diffusion(turn);
         }
     }
 
@@ -59,6 +61,11 @@ export default class Entries {
         let [ pacmanRow, pacmanCol ] = stope ? mapCoord : nextMapCoord;
         this.goToThePoint(turn, pacmanRow, pacmanCol);
 
+    }
+
+    diffusion(turn) {
+        let { diffusionPaintInMap:[tr, tc] } = this;
+        this.goToThePoint(turn, tr, tc );
     }
 
     goToThePoint(turn, targetRow, targetColumn) {
