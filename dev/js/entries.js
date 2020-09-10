@@ -84,7 +84,6 @@ export default class Entries {
 
         let vPath;
         let gPath;
-        console.log(turn, isLeft)
         if (!changeType) turn = turn.filter((el)=> el.nc[0] !== row || el.nc[1] !== col);
 
         if (targetRow === ghostRow){
@@ -190,6 +189,15 @@ export default class Entries {
             contextGame.fill();
             contextGame.restore();
         });
+        contextGame.closePath();
+    }
+
+    paintPointHelper(row, col) {
+        let { contextGame, xSteep, ySteep } = this;
+        contextGame.beginPath();
+        contextGame.fillStyle = '#red';
+        contextGame.fillRect(col * xSteep, row * ySteep, xSteep, ySteep);
+        contextGame.closePath();
     }
 
 }

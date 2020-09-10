@@ -97,15 +97,23 @@ class InkiGhost extends  Entries {
 
     chase(turn) {
         let { nextMapCoord, mapCoord, stope, direction:[ dirX, dirY ], gameMap } = entities['pacman'];
+        let { nexMapCoord:[shadowRow, shadowCol] } = entities['shadow'];
         let [ pacmanRow, pacmanCol ] = stope ? mapCoord : nextMapCoord;
-        let validCoord;
+        let validCoord = [pacmanRow, pacmanCol];
 
-        for (let i = 2; i >= 0; i-- ) {
-            let row = pacmanRow + i * dirY;
-            let col = pacmanCol + i * dirX
-            if (this.checkElementPermeability(gameMap[row]?.[col])) {
-                validCoord = [row, col];
-                break;
+        pacmanRow = pacmanRow + dirY*2 - 1;
+        pacmanCol = pacmanCol + dirX*2 - 1;
+
+        let hm = shadowCol > pacmanCol ? [-3, 1] : [3, -1];
+        let vm = shadowRow < pacmanRow ? [3, -1] : [-3, 1];
+
+        rowIter: for (let j = vm[0]; j !== 0; j += vm[1] ) {
+            for (let i = hm[0]; i !== 0; i += hm[1] ) {
+                let row = pacmanRow + j, col = pacmanCol + i;
+                if (this.checkElementPermeability(gameMap[pacmanRow + j]?.[pacmanCol + i])) {
+                    validCoord = [row, col];
+                    break rowIter;
+                }
             }
         }
         this.goToThePoint(turn,...validCoord);

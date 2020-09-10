@@ -52,7 +52,7 @@ import { ShadowGhost, PinkiGhost, InkiGhost } from './ghost';
         pacman.renderPacMan();
         shadow.render();
         // pinki.render();
-        // inki.render();
+        inki.render();
         requestAnimationFrame(loop);
     }
 
