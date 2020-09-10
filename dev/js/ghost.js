@@ -90,11 +90,27 @@ class InkiGhost extends  Entries {
     }
 
     render() {
-
         this.paintGhost();
         this.move();
         this.touchPacman();
     }
+
+    chase(turn) {
+        let { nextMapCoord, mapCoord, stope, direction:[ dirX, dirY ], gameMap } = entities['pacman'];
+        let [ pacmanRow, pacmanCol ] = stope ? mapCoord : nextMapCoord;
+        let validCoord;
+
+        for (let i = 2; i >= 0; i-- ) {
+            let row = pacmanRow + i * dirY;
+            let col = pacmanCol + i * dirX
+            if (this.checkElementPermeability(gameMap[row]?.[col])) {
+                validCoord = [row, col];
+                break;
+            }
+        }
+        this.goToThePoint(turn,...validCoord);
+    }
+
 
 }
 

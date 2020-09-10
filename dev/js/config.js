@@ -5,7 +5,7 @@
         w: window.innerWidth,
         h: window.innerHeight,
         ghostPosition: {
-            shadow: [14, 9],
+            shadow: [24, 9],
             pinki: [14, 9],
             inki: [14, 9],
         },

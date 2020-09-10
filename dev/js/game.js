@@ -51,8 +51,8 @@ import { ShadowGhost, PinkiGhost, InkiGhost } from './ghost';
         if (!_configCanvas.game.play) return;
         pacman.renderPacMan();
         shadow.render();
-        pinki.render();
-        inki.render();
+        // pinki.render();
+        // inki.render();
         requestAnimationFrame(loop);
     }
 

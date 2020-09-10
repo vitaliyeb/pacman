@@ -84,7 +84,7 @@ export default class Entries {
 
         let vPath;
         let gPath;
-
+        console.log(turn, isLeft)
         if (!changeType) turn = turn.filter((el)=> el.nc[0] !== row || el.nc[1] !== col);
 
         if (targetRow === ghostRow){
