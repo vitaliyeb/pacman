@@ -35,14 +35,14 @@ class PinkiGhost extends  Entries {
         this.contextGame = contextGame;
         this.coordinate = [y, x];
         this.mapCoordiante = [ir, ic];
-        this.nexMapCoord = [ir + 1, ic];
+        this.nexMapCoord = [ir, ic - 1];
         this.xSteep = xSteep;
         this.ySteep = ySteep;
         this.speed = 1;
         this.map = map;
         this.color = "#ffb9ff";
         // this.color = "#5d5db2";
-        this.direction = [ 1, 0]; //y, x
+        this.direction = [ 0, 0]; //y, x
         this.type = 'chase'
         this.changeType = false;
     }
@@ -77,14 +77,14 @@ class InkiGhost extends  Entries {
         this.contextGame = contextGame;
         this.coordinate = [y, x];
         this.mapCoordiante = [ir, ic];
-        this.nexMapCoord = [ir + 1, ic];
+        this.nexMapCoord = [ir, ic - 1];
         this.xSteep = xSteep;
         this.ySteep = ySteep;
         this.speed = 1;
         this.map = map;
         this.color = "#00ffff";
         // this.color = "#5d5db2";
-        this.direction = [ 1, 0]; //y, x
+        this.direction = [ 0, 0]; //y, x
         this.type = 'chase'
         this.changeType = false;
     }
@@ -129,14 +129,14 @@ class KlaydGhost extends  Entries {
         this.contextGame = contextGame;
         this.coordinate = [y, x];
         this.mapCoordiante = [ir, ic];
-        this.nexMapCoord = [ir + 1, ic];
+        this.nexMapCoord = [ir, ic - 1];
         this.xSteep = xSteep;
         this.ySteep = ySteep;
         this.speed = 1;
         this.map = map;
         this.color = "#ffb951";
         // this.color = "#5d5db2";
-        this.direction = [ 1, 0]; //y, x
+        this.direction = [ 0, 0]; //y, x
         this.type = 'chase'
         this.changeType = false;
     }

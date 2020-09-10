@@ -39,22 +39,23 @@ import { ShadowGhost, PinkiGhost, InkiGhost, KlaydGhost } from './ghost';
         let { ghostPosition: {
             pinki:[ irPinki, icPinki],
             shadow:[ irShadow, icShadow],
-            inki: [irInki, icInki]
+            inki: [irInki, icInki],
+            klayd: [irKlayd, icKlayd]
         }  } = _configCanvas;
 
         entities['shadow'] = new ShadowGhost(gameContext, xs, ys, gameMap, xs*icShadow, ys*irShadow, irShadow, icShadow);
         entities['pinki'] = new PinkiGhost(gameContext, xs, ys, gameMap, xs*icPinki, ys*irPinki, irPinki, icPinki);
         entities['inki'] = new InkiGhost(gameContext, xs, ys, gameMap, xs*icInki, ys*irInki, irInki, icInki);
-        entities['klayd'] = new KlaydGhost(gameContext, xs, ys, gameMap, xs*icInki, ys*irInki, irInki, icInki);
+        entities['klayd'] = new KlaydGhost(gameContext, xs, ys, gameMap, xs*icKlayd, ys*irKlayd, irKlayd, icKlayd);
     }
     
     function loop() {
         let { pacman, shadow, pinki, inki, klayd } = entities;
         if (!_configCanvas.game.play) return;
         pacman.renderPacMan();
-        // shadow.render();
-        // pinki.render();
-        // inki.render();
+        shadow.render();
+        pinki.render();
+        inki.render();
         klayd.render();
 
         requestAnimationFrame(loop);
