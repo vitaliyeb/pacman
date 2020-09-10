@@ -122,9 +122,46 @@ class InkiGhost extends  Entries {
 
 }
 
+class KlaydGhost extends  Entries {
+    constructor( contextGame, xSteep, ySteep, map, x, y, ir, ic ) {
+        super();
+        this.diffusionPaintInMap = [29, 1];
+        this.contextGame = contextGame;
+        this.coordinate = [y, x];
+        this.mapCoordiante = [ir, ic];
+        this.nexMapCoord = [ir + 1, ic];
+        this.xSteep = xSteep;
+        this.ySteep = ySteep;
+        this.speed = 1;
+        this.map = map;
+        this.color = "#ffb951";
+        // this.color = "#5d5db2";
+        this.direction = [ 1, 0]; //y, x
+        this.type = 'chase'
+        this.changeType = false;
+    }
+
+    render() {
+
+        this.paintGhost();
+        this.move();
+        this.touchPacman();
+    }
+
+    chase(turn) {
+        let { nextMapCoord, mapCoord, stope} = entities['pacman'];
+        let { mapCoordiante:[rowGhost, colGhost] } = this;
+        let [ pacmanRow, pacmanCol ] = stope ? mapCoord : nextMapCoord;
+
+        if (Math.abs(pacmanRow - rowGhost) < 8 && Math.abs(colGhost - pacmanCol) < 8) return this.diffusion(turn);
+        this.goToThePoint(turn, pacmanRow, pacmanCol);
+    }
+}
+
 
 export {
     ShadowGhost,
     PinkiGhost,
-    InkiGhost
+    InkiGhost,
+    KlaydGhost
 }

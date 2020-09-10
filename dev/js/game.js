@@ -1,7 +1,7 @@
 import CreateMap from './map';
 import RenderMapElements from './mapElement';
 import Helper from './helper';
-import { ShadowGhost, PinkiGhost, InkiGhost } from './ghost';
+import { ShadowGhost, PinkiGhost, InkiGhost, KlaydGhost } from './ghost';
 
 (() => {
     let canvasMap = document.getElementById('map');
@@ -16,6 +16,7 @@ import { ShadowGhost, PinkiGhost, InkiGhost } from './ghost';
     let helper = new Helper(size, gameMap);
     let [xs, ys] =  helper.setSize(canvasMap, canvasGame);
     let renderMapElements = new RenderMapElements(xs, ys, mapContext, gameMap, gameContext, entities);
+
 
     function renderMap() {
         gameMap.map((row, ir) => {
@@ -44,15 +45,18 @@ import { ShadowGhost, PinkiGhost, InkiGhost } from './ghost';
         entities['shadow'] = new ShadowGhost(gameContext, xs, ys, gameMap, xs*icShadow, ys*irShadow, irShadow, icShadow);
         entities['pinki'] = new PinkiGhost(gameContext, xs, ys, gameMap, xs*icPinki, ys*irPinki, irPinki, icPinki);
         entities['inki'] = new InkiGhost(gameContext, xs, ys, gameMap, xs*icInki, ys*irInki, irInki, icInki);
+        entities['klayd'] = new KlaydGhost(gameContext, xs, ys, gameMap, xs*icInki, ys*irInki, irInki, icInki);
     }
     
     function loop() {
-        let { pacman, shadow, pinki, inki } = entities;
+        let { pacman, shadow, pinki, inki, klayd } = entities;
         if (!_configCanvas.game.play) return;
         pacman.renderPacMan();
-        shadow.render();
+        // shadow.render();
         // pinki.render();
-        inki.render();
+        // inki.render();
+        klayd.render();
+
         requestAnimationFrame(loop);
     }
 
