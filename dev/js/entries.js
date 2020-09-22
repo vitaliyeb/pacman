@@ -50,16 +50,33 @@ export default class Entries {
                 return this.diffusion(turn);
             case 'fright':
                 return this.fright(turn);
+            case 'goOutside':
+                return this.goOutside(turn);
         }
     }
 
     lockedNextCoord() {
         let { direction: [ rowDirection], nexMapCoord: [row, col] } = this;
-        console.log(row, col);
-        
+         
         rowDirection < 0 ? 
             this.setNewParamsMove([1,0], [row + 2, col], [row, col] ) : 
             this.setNewParamsMove([-1,0], [row - 2, col], [row, col] ) ;
+    }
+
+    exitLocked() {
+        this.isLocked = false;
+        this.type = 'goOutside';
+
+    }
+
+    goOutside(turn) {
+        let { nexMapCoord: [row, col] } = this;
+        if(row === 14 && col === 9) {
+            this.type = 'chase';
+            return this.chase(turn);
+        }
+        this.goToThePoint(turn, 14, 9);
+
     }
 
     proceedMotion() {
@@ -138,7 +155,7 @@ export default class Entries {
     }
 
     checkElementPermeability(element) {
-        return element === '@' || element === '#';
+        return element === '@' || element === '#' || (this.type === 'goOutside' && element === '┅');
     }
 
     filtrCurrentPlane(turn, pos, verifiable) {
@@ -159,7 +176,6 @@ export default class Entries {
        if (ghostY + ySteep > y &&  ghostY < y + ySteep && ghostX + xSteep > x &&  ghostX < x + xSteep){
            _configCanvas.game.play = false;
        }
-        // console.log(ghostY, ghostX, x, y, xSteep, ySteep)
     }
 
     paintGhost(){

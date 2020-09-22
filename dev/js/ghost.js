@@ -47,6 +47,9 @@ class PinkiGhost extends  Entries {
         this.direction = [ -1, 0]; //y, x
         this.type = 'chase'
         this.changeType = false;
+        setTimeout(()=>{
+            this.exitLocked();
+        }, 1500);
     }
 
     render() {
