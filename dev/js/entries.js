@@ -20,7 +20,6 @@ export default class Entries {
         let { mapCoordiante:[row, column], nexMapCoord:[nextRow, nextColumn], xSteep, ySteep } = this;
         if ( column != nextColumn ) this.updateCoord( 1, nextColumn, xSteep );
         if ( row != nextRow ) this.updateCoord( 0, nextRow, ySteep );
-
     }
 
     updateCoord( posCoord, nextMapCoord, steep ) {
@@ -36,6 +35,9 @@ export default class Entries {
     }
 
     setNextCoord(posCoord, nextMapCoordInt) {
+        let { isLocked } = this;
+        if(isLocked) return this.lockedNextCoord();
+
         let turn = this.ifTurn();
 
         let turnOtside = turn.filter(el=> el.nc[posCoord] === nextMapCoordInt);
@@ -49,6 +51,15 @@ export default class Entries {
             case 'fright':
                 return this.fright(turn);
         }
+    }
+
+    lockedNextCoord() {
+        let { direction: [ rowDirection], nexMapCoord: [row, col] } = this;
+        console.log(row, col);
+        
+        rowDirection < 0 ? 
+            this.setNewParamsMove([1,0], [row + 2, col], [row, col] ) : 
+            this.setNewParamsMove([-1,0], [row - 2, col], [row, col] ) ;
     }
 
     proceedMotion() {
@@ -108,10 +119,6 @@ export default class Entries {
             let path = paths[Math.floor(Math.random()*paths.length)];
             return this.setNewParamsMove(path.d, path.nc, this.nexMapCoord);
         }
-
-        // if (changeType){
-        //
-        //
 
         let transition = turn.filter((el)=> el.nc[0] !== row || el.nc[1] !== col);
         return this.setNewParamsMove(transition[0].d, transition[0].nc, this.nexMapCoord);

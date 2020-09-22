@@ -57,7 +57,6 @@ import { ShadowGhost, PinkiGhost, InkiGhost, KlaydGhost } from './ghost';
         pinki.render();
         inki.render();
         klayd.render();
-
         requestAnimationFrame(loop);
     }
 
