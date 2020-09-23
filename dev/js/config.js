@@ -10,6 +10,46 @@
             inki: [14, 14],
             klayd: [14, 16],
         },
+        timeId : {
+            ghosts: {
+                shadow: [14, 9],
+                pinki: [14, 12],
+                inki: [14, 14],
+                klayd: [14, 16],
+            }
+        },
+        timeTable: [
+            [
+                {type: 'diffusion', time: 7000},
+                {type: 'chase', time: 20000},
+                {type: 'diffusion', time: 7000},
+                {type: 'chase', time: 20000},
+                {type: 'diffusion', time: 5000},
+                {type: 'chase', time: 20000},
+                {type: 'diffusion', time: 5000},
+                {type: 'chase', time: false},
+            ],
+            [
+                {type: 'diffusion', time: 7000},
+                {type: 'chase', time: 20000},
+                {type: 'diffusion', time: 7000},
+                {type: 'chase', time: 20000},
+                {type: 'diffusion', time: 5000},
+                {type: 'chase', time: 1033000},
+                {type: 'diffusion', time: 3000},
+                {type: 'chase', time: false},
+            ],
+            [
+                {type: 'diffusion', time: 7000},
+                {type: 'chase', time: 20000},
+                {type: 'diffusion', time: 7000},
+                {type: 'chase', time: 20000},
+                {type: 'diffusion', time: 5000},
+                {type: 'chase', time: 1037000},
+                {type: 'diffusion', time: 2000},
+                {type: 'chase', time: false},
+            ]
+        ],
         game: {
             play: true,
             level: 1

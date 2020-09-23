@@ -72,8 +72,8 @@ export default class Entries {
     goOutside(turn) {
         let { nexMapCoord: [row, col] } = this;
         if(row === 14 && col === 9) {
-            this.type = 'chase';
-            return this.chase(turn);
+            this.type = 'diffusion';
+            return this.diffusion(turn);
         }
         this.goToThePoint(turn, 14, 9);
 

@@ -48,7 +48,7 @@ import { ShadowGhost, PinkiGhost, InkiGhost, KlaydGhost } from './ghost';
         entities['inki'] = new InkiGhost(gameContext, xs, ys, gameMap, xs*icInki, ys*irInki, irInki, icInki);
         entities['klayd'] = new KlaydGhost(gameContext, xs, ys, gameMap, xs*icKlayd, ys*irKlayd, irKlayd, icKlayd);
     }
-    
+
     function loop() {
         let { pacman, shadow, pinki, inki, klayd } = entities;
         if (!_configCanvas.game.play) return;
