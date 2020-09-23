@@ -11,6 +11,7 @@ class ShadowGhost extends  Entries {
         this.mapCoordiante = [ir, ic];
         this.nexMapCoord = [ir + 1, ic];
         this. isLocked = false,
+        this.name = 'shadow',
         this.xSteep = xSteep;
         this.ySteep = ySteep;
         this.speed = 1;
@@ -33,6 +34,7 @@ class PinkiGhost extends  Entries {
     constructor( contextGame, xSteep, ySteep, map, x, y, ir, ic ) {
         super();
         this.diffusionPaintInMap = [1, 26];
+        this.name = 'pinki',
         this.contextGame = contextGame;
         this.coordinate = [y, x];
         this.mapCoordiante = [ir, ic];
@@ -47,9 +49,6 @@ class PinkiGhost extends  Entries {
         this.direction = [ -1, 0]; //y, x
         this.type = 'chase'
         this.changeType = false;
-        setTimeout(()=>{
-            this.exitLocked();
-        }, 1500);
     }
 
     render() {
@@ -89,6 +88,7 @@ class InkiGhost extends  Entries {
         this.map = map;
         this.color = "#00ffff";
         this.isLocked = true,
+        this.name = 'inki',
         // this.color = "#5d5db2";
         this.direction = [ 1, 0]; //y, x
         this.type = 'chase'
@@ -141,6 +141,7 @@ class KlaydGhost extends  Entries {
         this.speed = 1;
         this.map = map;
         this.isLocked = true,
+        this.name = 'klayd',
         this.color = "#ffb951";
         // this.color = "#5d5db2";
         this.direction = [ -1, 0]; //y, x

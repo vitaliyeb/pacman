@@ -50,9 +50,16 @@
                 {type: 'chase', time: false},
             ]
         ],
+        counterEatinOutside: {
+            shadow: 0,
+            pinki: 0,
+            inki: 30,
+            klayd: 60,
+        },
         game: {
             play: true,
-            level: 1
+            level: 1,
+            eaten: 0
         }
     }
 })()

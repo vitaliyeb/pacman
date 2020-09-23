@@ -57,6 +57,10 @@ export default class Entries {
 
     lockedNextCoord() {
         let { direction: [ rowDirection], nexMapCoord: [row, col] } = this;
+
+        if( _configCanvas.game.eaten >= _configCanvas.counterEatinOutside[this.name] || _configCanvas.game.level > 3 ){
+            return this.exitLocked();
+        }
          
         rowDirection < 0 ? 
             this.setNewParamsMove([1,0], [row + 2, col], [row, col] ) : 
@@ -66,7 +70,6 @@ export default class Entries {
     exitLocked() {
         this.isLocked = false;
         this.type = 'goOutside';
-
     }
 
     goOutside(turn) {
