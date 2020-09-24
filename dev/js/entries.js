@@ -76,9 +76,20 @@ export default class Entries {
         let { nexMapCoord: [row, col] } = this;
         if(row === 14 && col === 9) {
             this.type = 'diffusion';
+            let level = _configCanvas.game.level;
+            _configCanvas.timeId.ghosts[this.name].goOutsideHomeGhosts = setTimeout(()=>{
+                this.type = this.getCurrentType();
+            }, level === 1 ? 5000 : level >= 5 ? 3000 : 2000);
             return this.diffusion(turn);
         }
         this.goToThePoint(turn, 14, 9);
+
+    }
+
+    getCurrentType() {
+        let level = _configCanvas.game.level;
+        let currentIndex = level === 1 ? 0 : level >= 5 ? 2 : 1;
+        console.log(currentIndex);
 
     }
 

@@ -12,10 +12,18 @@
         },
         timeId : {
             ghosts: {
-                shadow: [14, 9],
-                pinki: [14, 12],
-                inki: [14, 14],
-                klayd: [14, 16],
+                shadow: {
+                    goOutsideHomeGhosts: null
+                },
+                pinki: {
+                    goOutsideHomeGhosts: null
+                },
+                inki: {
+                    goOutsideHomeGhosts: null
+                },
+                klayd: {
+                    goOutsideHomeGhosts: null
+                },
             }
         },
         timeTable: [

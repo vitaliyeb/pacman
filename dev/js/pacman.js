@@ -169,6 +169,7 @@ export default class Pacman {
             cm.fillRect(xs * col, ys * row, xs, ys);
             cm.closePath();
             _configCanvas.game.eaten++;
+            _configCanvas.game.score+=10;
         }
     }
 
