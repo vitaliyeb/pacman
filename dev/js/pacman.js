@@ -168,7 +168,7 @@ export default class Pacman {
             cm.fillStyle = '#000';
             cm.fillRect(xs * col, ys * row, xs, ys);
             cm.closePath();
-            // ТУТ БУДЕТ ПРОДОЛЖЕНИЕ КОДА С ПОДСЧЕТОМ ОЧКОВ
+            _configCanvas.game.eaten++;
         }
     }
 

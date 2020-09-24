@@ -59,7 +59,8 @@
         game: {
             play: true,
             level: 1,
-            eaten: 0
+            eaten: 0,
+            score: 0
         }
     }
 })()

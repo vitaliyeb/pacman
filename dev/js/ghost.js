@@ -77,7 +77,7 @@ class PinkiGhost extends  Entries {
 class InkiGhost extends  Entries {
     constructor( contextGame, xSteep, ySteep, map, x, y, ir, ic ) {
         super();
-        this.diffusionPaintInMap = [1, 26];
+        this.diffusionPaintInMap = [1, 1];
         this.contextGame = contextGame;
         this.coordinate = [y, x];
         this.mapCoordiante = [ir, ic];
