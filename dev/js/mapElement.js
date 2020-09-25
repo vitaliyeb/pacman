@@ -26,6 +26,14 @@ export default class RenderMapElements {
         c.fillStyle  = '#ffb8ae';
         c.fillRect(x + exhs, y + eyhs, ew, eh);
     }
+    'E'(x, y) {
+        let { c, cy, cx } = this;
+        c.fillStyle = 'ffb8ae';
+        c.arc(x + cx, y + cy, cy < cx ? cy : cx, 0, Math.PI * 2);
+        c.fill();
+        c.beginPath();
+    }
+
     '#'() {
         return;
     }
