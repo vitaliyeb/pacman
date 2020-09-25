@@ -5,7 +5,7 @@ import Entries from "./entries";
 class ShadowGhost extends  Entries {
     constructor( contextGame, xSteep, ySteep, map, x, y, ir, ic ) {
         super();
-        this.diffusionPaintInMap = [1, 26];
+        this.diffusionPaintInMap = [29, 1];
         this.contextGame = contextGame;
         this.coordinate = [y, x];
         this.mapCoordiante = [ir, ic];
@@ -19,7 +19,7 @@ class ShadowGhost extends  Entries {
         this.color = "#ff0000";
         // this.color = "#5d5db2";
         this.direction = [ 1, 0]; //y, x
-        this.type = 'chase'
+        this.type = 'diffusion'
         this.changeType = false;
     }
 
@@ -47,7 +47,7 @@ class PinkiGhost extends  Entries {
         this.isLocked = true,
         // this.color = "#5d5db2";
         this.direction = [ -1, 0]; //y, x
-        this.type = 'chase'
+        this.type = 'diffusion'
         this.changeType = false;
     }
 
@@ -91,7 +91,7 @@ class InkiGhost extends  Entries {
         this.name = 'inki',
         // this.color = "#5d5db2";
         this.direction = [ 1, 0]; //y, x
-        this.type = 'chase'
+        this.type = 'diffusion'
         this.changeType = false;
     }
 
@@ -145,7 +145,7 @@ class KlaydGhost extends  Entries {
         this.color = "#ffb951";
         // this.color = "#5d5db2";
         this.direction = [ -1, 0]; //y, x
-        this.type = 'chase'
+        this.type = 'diffusion'
         this.changeType = false;
     }
 

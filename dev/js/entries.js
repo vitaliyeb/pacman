@@ -89,7 +89,7 @@ export default class Entries {
     getCurrentType() {
         let level = _configCanvas.game.level;
         let currentIndex = level === 1 ? 0 : level >= 5 ? 2 : 1;
-        console.log(currentIndex);
+        
 
     }
 

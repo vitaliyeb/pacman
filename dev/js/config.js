@@ -66,6 +66,7 @@
         },
         game: {
             play: true,
+            currentGlobalType: undefined,
             level: 1,
             eaten: 0,
             score: 0
