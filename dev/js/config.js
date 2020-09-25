@@ -66,7 +66,8 @@
         },
         game: {
             play: true,
-            currentGlobalType: undefined,
+            currentGlobalType: 'diffusion',
+            countPeriod: 0,
             level: 1,
             eaten: 0,
             score: 0

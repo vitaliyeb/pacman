@@ -27,7 +27,7 @@ import { ShadowGhost, PinkiGhost, InkiGhost, KlaydGhost } from './ghost';
                 // mapContext.stroke();
 
                 // console.log(ir, ic)
-                console.log(ir, ic);
+                
                 mapContext.beginPath();
                 renderMapElements[col](xs * ic, ys * ir, ir, ic) 
                 mapContext.stroke();
@@ -47,6 +47,19 @@ import { ShadowGhost, PinkiGhost, InkiGhost, KlaydGhost } from './ghost';
         entities['pinki'] = new PinkiGhost(gameContext, xs, ys, gameMap, xs*icPinki, ys*irPinki, irPinki, icPinki);
         entities['inki'] = new InkiGhost(gameContext, xs, ys, gameMap, xs*icInki, ys*irInki, irInki, icInki);
         entities['klayd'] = new KlaydGhost(gameContext, xs, ys, gameMap, xs*icKlayd, ys*irKlayd, irKlayd, icKlayd);
+        setTypeAllGhost();
+    }
+
+    function setTypeAllGhost() {
+        let level = _configCanvas.game.level;
+        let cto = _configCanvas.timeTable[level === 1 ? 0 : level >= 5 ? 2 : 1][_configCanvas.game.countPeriod++];
+        for (let item of Object.values(entities)) {
+            if(item.name === 'pac man' || item.type === 'goOutside' || item.type === 'fright') continue;
+            item.type = cto.type;
+        }
+        _configCanvas.game.currentGlobalType = cto.type;
+        if(!cto.time) return;
+        setTimeout(setTypeAllGhost, cto.time);
     }
 
     function loop() {

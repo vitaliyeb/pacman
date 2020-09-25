@@ -131,7 +131,7 @@ class InkiGhost extends  Entries {
 class KlaydGhost extends  Entries {
     constructor( contextGame, xSteep, ySteep, map, x, y, ir, ic ) {
         super();
-        this.diffusionPaintInMap = [29, 1];
+        this.diffusionPaintInMap = [26, 29];
         this.contextGame = contextGame;
         this.coordinate = [y, x];
         this.mapCoordiante = [ir, ic];
