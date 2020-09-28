@@ -157,7 +157,7 @@ export default class Entries {
     }
 
     checkElementPermeability(element) {
-        return element === '@' || element === '#' || (this.type === 'goOutside' && element === '┅');
+        return element === '@' || element === 'E' || element === '#' || (this.type === 'goOutside' && element === '┅');
     }
 
     filtrCurrentPlane(turn, pos, verifiable) {

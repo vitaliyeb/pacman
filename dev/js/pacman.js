@@ -127,7 +127,7 @@ export default class Pacman {
     checkPassage(row, collumn) {
         let { gameMap } = this;
         let checkElem = gameMap[row][collumn];
-        if( checkElem === '@' || checkElem === 'P' || checkElem === '#' || checkElem === 'X' ) return true;
+        if( checkElem === '@' || checkElem === 'P' || checkElem === '#' || checkElem === 'E' || checkElem === 'X' ) return true;
         return false;
     }
 
@@ -161,25 +161,39 @@ export default class Pacman {
     }
 
     ifEatElem() {
-        let { mapCoord:[ row, col], gameMap, contextMap: cm, xs, ys } = this;
-        if(gameMap[row][col] === '@'){
-            gameMap[row][col] = '#';
-            cm.beginPath();
-            cm.fillStyle = '#000';
-            cm.fillRect(xs * col, ys * row, xs, ys);
-            cm.closePath();
-            _configCanvas.game.eaten++;
-            _configCanvas.game.score+=10;
-        }
+        let { gameMap, mapCoord:[ row, col],  } = this;
+        let el = gameMap[row][col];
+        if (el === 'E') return this.eatEnergyzer(row, col);
+        if(el === '@') return this.eatFood(row, col);
+    }
+
+    paintRect(row, col){
+        let { gameMap, contextMap: cm, xs, ys } = this;
+        gameMap[row][col] = '#';
+        cm.beginPath();
+        cm.fillStyle = '#000';
+        cm.fillRect(xs * col, ys * row, xs, ys);
+        cm.closePath();
+    }
+
+    eatEnergyzer(row, col) {
+        this.paintRect(row, col);
+
+    }
+
+    eatFood(row, col) {
+        this.paintRect(row, col);
+        _configCanvas.game.eaten++;
+        _configCanvas.game.score+=10;
     }
 
     renderPacMan() {
         this.clearPacman();
         this.move();
-
         this.paintPac(this.x, this.y);
         this.ifEatElem();
     }
+
     paintPac(x, y) {
         let { c, xs, ys, color, r, angleOpenMounth, aa, openMounth, direction: [xd, yd]} = this;
         let cx = x + Math.floor(xs / 2), yc = y + Math.floor(ys / 2);
