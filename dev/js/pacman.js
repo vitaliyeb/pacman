@@ -1,8 +1,9 @@
 
 export default class Pacman {
-    constructor(c, xs, ys, x, y, ir, ic, gameMap, contextMap) {
+    constructor(c, xs, ys, x, y, ir, ic, gameMap, contextMap, entries) {
         this.c = c;
-        this.xs = xs; 
+        this.xs = xs;
+        this.entries = entries;
         this.counterMounth = undefined;
         this.gameMap = gameMap;
         this.contextMap = contextMap;
@@ -83,10 +84,7 @@ export default class Pacman {
 
         if (startPositionPaint === endTrough) return this.endTrough(endTrough, xs);
 
-        this.paintPac( startPositionPaint , row * ys)
-
-
-
+        this.paintPac( startPositionPaint , row * ys);
     }
 
     createTroughConfig (xSteep, isLeft) {
@@ -178,7 +176,10 @@ export default class Pacman {
 
     eatEnergyzer(row, col) {
         this.paintRect(row, col);
-
+        for (let entrie of Object.values(this.entries)) {
+            if(entrie.name == 'pac man' && entrie.isLocked) continue;
+            entrie.type = 'fright';
+        }
     }
 
     eatFood(row, col) {

@@ -47,8 +47,8 @@ export default class RenderMapElements {
     }
 
     'P'(x, y, ir, ic) {
-        let { cg, xs, ys, gameMap, c} = this;
-        this.entities['pacman'] = new Pacman(cg, xs, ys, x, y, ir, ic, gameMap, c);
+        let { cg, xs, ys, gameMap, c, entities} = this;
+        entities['pacman'] = new Pacman(cg, xs, ys, x, y, ir, ic, gameMap, c, entities);
     }
 
     '║'(x, y) {
