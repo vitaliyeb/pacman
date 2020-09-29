@@ -28,6 +28,10 @@
                     goOutsideHomeGhosts: null,
                     fright: null
                 },
+            },
+            frightTimer: {
+                period: [5000, 3000, 1000],
+                timer: null,
             }
         },
         timeTable: [
@@ -71,6 +75,7 @@
         game: {
             play: true,
             currentGlobalType: 'diffusion',
+            fright: false,
             countPeriod: 0,
             level: 1,
             eaten: 0,

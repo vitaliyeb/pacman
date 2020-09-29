@@ -176,11 +176,16 @@ export default class Pacman {
 
     eatEnergyzer(row, col) {
         this.paintRect(row, col);
+        _configCanvas.game.fright = true;
         for (let entrie of Object.values(this.entries)) {
             if(entrie.name == 'pac man' || entrie.isLocked || entrie.type === 'goOutside') continue;
             entrie.type = 'fright';
             entrie.changeColor();
         }
+        let ft = _configCanvas.timeId.frightTimer;
+        let level = _configCanvas.game.level;
+        if(ft.timer) clearTimeout(ft.timer);
+        ft.timer = setTimeout(()=>_configCanvas.game.fright = false, level === 1 ? ft.period[0] : level >= 5 ?  ft.period[2] :  ft.period[1]);
     }
 
     eatFood(row, col) {

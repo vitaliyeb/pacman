@@ -75,6 +75,10 @@ export default class Entries {
     goOutside(turn) {
         let { nexMapCoord: [row, col] } = this;
         if(row === 14 && col === 9) {
+            if(_configCanvas.game.fright) {
+                this.changeColor();
+                return this.type = 'fright';
+            }
             return this.type = _configCanvas.game.currentGlobalType;
         }
         this.goToThePoint(turn, 14, 9);
@@ -181,7 +185,13 @@ export default class Entries {
     }
 
     changeColor() {
-        _configCanvas.timeId.ghosts[this.name].fright = setInterval((arcColor)=>{
+        _configCanvas.timeId.ghosts[this.name].fright = setInterval(()=>{
+            console.log(_configCanvas.game.fright)
+            if (!_configCanvas.game.fright){
+                clearInterval( _configCanvas.timeId.ghosts[this.name].fright);
+                this.type = _configCanvas.game.currentGlobalType;
+                return this.color = this.originColor;
+            }
             this.color = this.color === this.originColor ? '#5d5db2' : this.originColor;
         }, 300);
     }
