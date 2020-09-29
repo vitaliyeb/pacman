@@ -180,6 +180,12 @@ export default class Entries {
        }
     }
 
+    changeColor() {
+        _configCanvas.timeId.ghosts[this.name].fright = setInterval((arcColor)=>{
+            this.color = this.color === this.originColor ? '#5d5db2' : this.originColor;
+        }, 300);
+    }
+
     paintGhost(){
         let { contextGame, coordinate: [y, x], color, xSteep, ySteep, type } = this;
 

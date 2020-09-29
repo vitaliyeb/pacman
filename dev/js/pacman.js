@@ -177,8 +177,9 @@ export default class Pacman {
     eatEnergyzer(row, col) {
         this.paintRect(row, col);
         for (let entrie of Object.values(this.entries)) {
-            if(entrie.name == 'pac man' && entrie.isLocked) continue;
+            if(entrie.name == 'pac man' || entrie.isLocked || entrie.type === 'goOutside') continue;
             entrie.type = 'fright';
+            entrie.changeColor();
         }
     }
 

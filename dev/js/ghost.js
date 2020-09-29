@@ -17,6 +17,7 @@ class ShadowGhost extends  Entries {
         this.speed = 1;
         this.map = map;
         this.color = "#ff0000";
+        this.originColor = "#ff0000";
         // this.color = "#5d5db2";
         this.direction = [ 1, 0]; //y, x
         this.type = 'diffusion'
@@ -44,6 +45,7 @@ class PinkiGhost extends  Entries {
         this.speed = 1;
         this.map = map;
         this.color = "#ffb9ff";
+        this.originColor = "#ffb9ff";
         this.isLocked = true,
         // this.color = "#5d5db2";
         this.direction = [ -1, 0]; //y, x
@@ -87,6 +89,7 @@ class InkiGhost extends  Entries {
         this.speed = 1;
         this.map = map;
         this.color = "#00ffff";
+        this.originColor = "#00ffff";
         this.isLocked = true,
         this.name = 'inki',
         // this.color = "#5d5db2";
@@ -143,6 +146,7 @@ class KlaydGhost extends  Entries {
         this.isLocked = true,
         this.name = 'klayd',
         this.color = "#ffb951";
+        this.originColor = "#ffb951";
         // this.color = "#5d5db2";
         this.direction = [ -1, 0]; //y, x
         this.type = 'diffusion'

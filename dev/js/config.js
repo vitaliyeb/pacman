@@ -13,16 +13,20 @@
         timeId : {
             ghosts: {
                 shadow: {
-                    goOutsideHomeGhosts: null
+                    goOutsideHomeGhosts: null,
+                    fright: null
                 },
                 pinki: {
-                    goOutsideHomeGhosts: null
+                    goOutsideHomeGhosts: null,
+                    fright: null
                 },
                 inki: {
-                    goOutsideHomeGhosts: null
+                    goOutsideHomeGhosts: null,
+                    fright: null
                 },
                 klayd: {
-                    goOutsideHomeGhosts: null
+                    goOutsideHomeGhosts: null,
+                    fright: null
                 },
             }
         },
