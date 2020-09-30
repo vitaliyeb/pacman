@@ -180,9 +180,14 @@ export default class Entries {
        let { coordinate:[ghostY, ghostX], xSteep, ySteep } = this;
        let { pacman: { x, y} } = entities;
        if (ghostY + ySteep > y &&  ghostY < y + ySteep && ghostX + xSteep > x &&  ghostX < x + xSteep){
+           if (_configCanvas.game.fright){
+                return;
+           }
            _configCanvas.game.play = false;
        }
     }
+
+
 
     changeColor() {
         _configCanvas.timeId.ghosts[this.name].fright = setInterval(()=>{
