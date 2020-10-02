@@ -181,7 +181,8 @@ export default class Entries {
        let { pacman: { x, y} } = entities;
        if (ghostY + ySteep > y &&  ghostY < y + ySteep && ghostX + xSteep > x &&  ghostX < x + xSteep){
            if (_configCanvas.game.fright){
-                return;
+                _configCanvas.game.score += 200;
+                return ;
            }
            _configCanvas.game.play = false;
        }

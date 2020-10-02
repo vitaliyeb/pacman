@@ -99,8 +99,8 @@ export default class Pacman {
     endTrough(endTrough) {
         let { mapCoord: [row, col], gameMap } = this;
         this.x = endTrough;
-        this.mapCoord = [ row, endTrough === 0 ? 0 : gameMap[0].length-1]
-        this.nextMapCoord = [ row, endTrough === 0 ? 1 : gameMap[0].length-2]
+        this.mapCoord = [ row, endTrough === 0 ? 0 : gameMap[0].length-1];
+        this.nextMapCoord = [ row, endTrough === 0 ? 1 : gameMap[0].length-2];
         return this.isThrough = false;
     }
 
