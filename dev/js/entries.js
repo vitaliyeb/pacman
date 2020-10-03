@@ -16,6 +16,12 @@ export default class Entries {
         ].filter((el)=> this.checkElementPermeability(map[el.nc[0]][el.nc[1]]));
     }
 
+    render() {
+        this.paintGhost();
+        this.move();
+        this.touchPacman();
+    }
+
     move() {
         let { mapCoordiante:[row, column], nexMapCoord:[nextRow, nextColumn], xSteep, ySteep } = this;
         if ( column != nextColumn ) this.updateCoord( 1, nextColumn, xSteep );
@@ -184,7 +190,7 @@ export default class Entries {
        if( rowGhost === rowPac && colGhost === colPac ){
         if (_configCanvas.game.fright){
             _configCanvas.game.score += 200;
-            return ;
+            return this.type = 'goToHome';
        }
        _configCanvas.game.play = false;
        }
@@ -212,20 +218,22 @@ export default class Entries {
     paintGhost(){
         let { contextGame, coordinate: [y, x], color, xSteep, ySteep, type } = this;
 
-        contextGame.beginPath();
-        contextGame.fillStyle = color;
+        if (this.type !== 'goToHome'){
+            contextGame.beginPath();
+            contextGame.fillStyle = color;
 
-        let fx = xSteep / 8,
-            yf = ySteep / 5;
-        contextGame.moveTo(x + 2, y + ySteep / 3);
-        contextGame.quadraticCurveTo( x + xSteep / 2, y, x + xSteep - 2, y + ySteep / 3);
-        contextGame.lineTo( x + xSteep, y + ySteep)
-        let isBottom = false;
-        for (let i = 1; i <= 8; i++){
-            contextGame.lineTo(x + (xSteep - fx *  i), y + ySteep - ( isBottom ? 0 : yf))
-            isBottom = !isBottom;
+            let fx = xSteep / 8,
+                yf = ySteep / 5;
+            contextGame.moveTo(x + 2, y + ySteep / 3);
+            contextGame.quadraticCurveTo( x + xSteep / 2, y, x + xSteep - 2, y + ySteep / 3);
+            contextGame.lineTo( x + xSteep, y + ySteep)
+            let isBottom = false;
+            for (let i = 1; i <= 8; i++){
+                contextGame.lineTo(x + (xSteep - fx *  i), y + ySteep - ( isBottom ? 0 : yf))
+                isBottom = !isBottom;
+            }
+            contextGame.fill();
         }
-        contextGame.fill();
 
         let eyeW = xSteep / 5;
 

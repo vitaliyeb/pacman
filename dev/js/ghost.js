@@ -25,11 +25,7 @@ class ShadowGhost extends  Entries {
         this.changeType = false;
     }
 
-    render() {
-        this.paintGhost();
-        this.move();
-        this.touchPacman();
-    }
+
 }
 
 class PinkiGhost extends  Entries {
@@ -55,12 +51,7 @@ class PinkiGhost extends  Entries {
         this.changeType = false;
     }
 
-    render() {
 
-        this.paintGhost();
-        this.move();
-        this.touchPacman();
-    }
 
     chase(turn) {
         let { nextMapCoord, mapCoord, stope, direction:[ dirX, dirY ], gameMap } = entities['pacman'];
@@ -101,11 +92,6 @@ class InkiGhost extends  Entries {
         this.changeType = false;
     }
 
-    render() {
-        this.paintGhost();
-        this.move();
-        this.touchPacman();
-    }
 
     chase(turn) {
         let { nextMapCoord, mapCoord, stope, direction:[ dirX, dirY ], gameMap } = entities['pacman'];
@@ -157,11 +143,6 @@ class KlaydGhost extends  Entries {
         this.changeType = false;
     }
 
-    render() {
-        this.paintGhost();
-        this.move();
-        this.touchPacman();
-    }
 
     chase(turn) {
         let { nextMapCoord, mapCoord, stope} = entities['pacman'];
