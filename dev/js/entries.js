@@ -20,6 +20,7 @@ export default class Entries {
         let { mapCoordiante:[row, column], nexMapCoord:[nextRow, nextColumn], xSteep, ySteep } = this;
         if ( column != nextColumn ) this.updateCoord( 1, nextColumn, xSteep );
         if ( row != nextRow ) this.updateCoord( 0, nextRow, ySteep );
+        this.calcFactualSituation();
     }
 
     updateCoord( posCoord, nextMapCoord, steep ) {
@@ -192,7 +193,6 @@ export default class Entries {
 
     changeColor() {
         _configCanvas.timeId.ghosts[this.name].fright = setInterval(()=>{
-            console.log(_configCanvas.game.fright)
             if (!_configCanvas.game.fright){
                 clearInterval( _configCanvas.timeId.ghosts[this.name].fright);
                 this.type = _configCanvas.game.currentGlobalType;
@@ -200,6 +200,12 @@ export default class Entries {
             }
             this.color = this.color === this.originColor ? '#5d5db2' : this.originColor;
         }, 300);
+    }
+
+    calcFactualSituation() {
+        let { coordinate: [y, x], xSteep, ySteep, direction: [yd, xd] } = this;
+        let p = xd === 0 ? [y, ySteep, 0] : [x, xSteep, 1];
+        this.actualSituation[p[2]] = Math.floor(p[0] / p[1]) + (p[0] % p[1] > p[1] / 2 ? 1 : 0);
     }
 
     paintGhost(){
