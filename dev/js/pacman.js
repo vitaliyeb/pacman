@@ -21,6 +21,7 @@ export default class Pacman {
         this.anglePacman = 0;
         this.throughData = undefined;
         this.openMounth = true;
+        this.actualSituation = [ir , ic]; 
         this.stope = false;
         this.endChangeDirection = undefined;
         this.color = '#ffff00';
@@ -198,7 +199,14 @@ export default class Pacman {
         this.clearPacman();
         this.move();
         this.paintPac(this.x, this.y);
+        this.calcFactualSituation();
         this.ifEatElem();
+    }
+
+    calcFactualSituation() {
+        let { x, y, xs, ys, direction: [xd] } = this;
+        let p = xd === 0 ? [y, ys, 0] : [x, xs, 1];
+        this.actualSituation[p[2]] = Math.floor(p[0] / p[1]) + (p[0] % p[1] > p[1] / 2 ? 1 : 0);
     }
 
     paintPac(x, y) {

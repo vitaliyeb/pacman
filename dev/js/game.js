@@ -26,7 +26,7 @@ import { ShadowGhost, PinkiGhost, InkiGhost, KlaydGhost } from './ghost';
                 // mapContext.rect(xs * ic, ys * ir, xs, ys);
                 // mapContext.stroke();
 
-                // console.log(ir, ic)
+                // console.log(ir, ic);
                 
                 mapContext.beginPath();
                 renderMapElements[col](xs * ic, ys * ir, ir, ic) 
