@@ -178,14 +178,15 @@ export default class Entries {
     }
 
     touchPacman() {
-       let { coordinate:[ghostY, ghostX], xSteep, ySteep } = this;
-       let { pacman: { x, y} } = entities;
-       if (ghostY + ySteep > y &&  ghostY < y + ySteep && ghostX + xSteep > x &&  ghostX < x + xSteep){
-           if (_configCanvas.game.fright){
-                _configCanvas.game.score += 200;
-                return ;
-           }
-           _configCanvas.game.play = false;
+       let { actualSituation: [rowGhost, colGhost] } = this;
+       let { pacman : {actualSituation : [rowPac, colPac]} } = entities;
+
+       if( rowGhost === rowPac && colGhost === colPac ){
+        if (_configCanvas.game.fright){
+            _configCanvas.game.score += 200;
+            return ;
+       }
+       _configCanvas.game.play = false;
        }
     }
 
