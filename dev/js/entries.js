@@ -74,7 +74,6 @@ export default class Entries {
         if(row !== rowTarget || col !== colTarget) return this.goToThePoint(turn, rowTarget, colTarget);
 
         this.toInput = false;
-        this.eaten = true;
         return this.type = 'goOutside';
     }
 
@@ -96,13 +95,14 @@ export default class Entries {
     }
 
     goOutside(turn) {
-        let { nexMapCoord: [row, col] } = this;
+        let { nexMapCoord: [row, col], eaten } = this;
         if(row === 14 && col === 9) {
-            if(_configCanvas.game.fright) {
+            if(_configCanvas.game.fright && !eaten) {
                 this.changeColor();
                 return this.type = 'fright';
             }
-
+            this.eaten = false;
+            console.log(_configCanvas.game.currentGlobalType);
             return this.type = _configCanvas.game.currentGlobalType;
         }
         this.goToThePoint(turn, 14, 9);
@@ -201,12 +201,16 @@ export default class Entries {
     }
 
     touchPacman() {
-       let { actualSituation: [rowGhost, colGhost] } = this;
+       let { actualSituation: [rowGhost, colGhost], type } = this;
        let { pacman : {actualSituation : [rowPac, colPac]} } = entities;
 
        if( rowGhost === rowPac && colGhost === colPac ){
-        if (_configCanvas.game.fright){
+        console.log(type);
+        if (type === 'fright' || type === 'goToHome'){
             _configCanvas.game.score += 200;
+            clearInterval(_configCanvas.timeId.ghosts[this.name].fright);
+            this.eaten = true;
+            this.color = this.originColor;
             return this.type = 'goToHome';
        }
        _configCanvas.game.play = false;
@@ -216,6 +220,7 @@ export default class Entries {
 
 
     changeColor() {
+        this.color = '#5d5db2';
         _configCanvas.timeId.ghosts[this.name].fright = setInterval(()=>{
             if (!_configCanvas.game.fright){
                 clearInterval( _configCanvas.timeId.ghosts[this.name].fright);
