@@ -12,6 +12,7 @@ class ShadowGhost extends  Entries {
         this.nexMapCoord = [ir, ic + 1];
         this. isLocked = false,
         this.name = 'shadow',
+        this.toInput = false;
         this.xSteep = xSteep;
         this.ySteep = ySteep;
         this.actualSituation = [ir , ic]; 
@@ -39,6 +40,7 @@ class PinkiGhost extends  Entries {
         this.nexMapCoord = [ir - 1, ic];
         this.xSteep = xSteep;
         this.ySteep = ySteep;
+        this.toInput = false;
         this.actualSituation = [ir , ic]; 
         this.speed = 1;
         this.map = map;
@@ -82,6 +84,7 @@ class InkiGhost extends  Entries {
         this.actualSituation = [ir , ic]; 
         this.speed = 1;
         this.map = map;
+        this.toInput = false;
         this.color = "#00ffff";
         this.originColor = "#00ffff";
         this.isLocked = true,
@@ -137,6 +140,7 @@ class KlaydGhost extends  Entries {
         this.name = 'klayd',
         this.color = "#ffb951";
         this.originColor = "#ffb951";
+        this.toInput = false;
         // this.color = "#5d5db2";
         this.direction = [ -1, 0]; //y, x
         this.type = 'diffusion'

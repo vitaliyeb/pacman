@@ -10,6 +10,12 @@
             inki: [14, 14],
             klayd: [14, 16],
         },
+        positionGoToHome: {
+            shadow: [14, 12],
+            pinki: [14, 12],
+            inki: [14, 14],
+            klayd: [14, 16],
+        },
         timeId : {
             ghosts: {
                 shadow: {
@@ -30,7 +36,7 @@
                 },
             },
             frightTimer: {
-                period: [5000, 3000, 1000],
+                period: [50000, 3000, 1000],
                 timer: null,
             }
         },

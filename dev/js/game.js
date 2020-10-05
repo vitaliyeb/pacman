@@ -54,7 +54,8 @@ import { ShadowGhost, PinkiGhost, InkiGhost, KlaydGhost } from './ghost';
         let level = _configCanvas.game.level;
         let cto = _configCanvas.timeTable[level === 1 ? 0 : level >= 5 ? 2 : 1][_configCanvas.game.countPeriod++];
         for (let item of Object.values(entities)) {
-            if(item.name === 'pac man' || item.type === 'goOutside' || item.type === 'fright') continue;
+            let it = item.type;
+            if(it === 'pac man' || it === 'goOutside' || it === 'fright' || it === 'goToHome') continue;
             item.type = cto.type;
         }
         _configCanvas.game.currentGlobalType = cto.type;

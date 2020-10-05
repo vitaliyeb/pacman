@@ -51,7 +51,7 @@ export default class Entries {
         if (!turnOtside.length) return this.proceedMotion();
 
         switch (this.type){
-            case 'chase':
+            case 'chase':   
                 return this.chase(turn);
             case 'diffusion':
                 return this.diffusion(turn);
@@ -59,7 +59,23 @@ export default class Entries {
                 return this.fright(turn);
             case 'goOutside':
                 return this.goOutside(turn);
+            case 'goToHome':
+                return this.goToHome(turn);   
         }
+    }
+
+
+    goToHome(turn){
+        let { nexMapCoord: [row, col], name, toInput } = this;
+        if(!toInput && (row !== 14 || col !== 9)) return this.goToThePoint(turn, 14, 9);
+        this.toInput = true;
+        
+        let [rowTarget, colTarget] = _configCanvas.positionGoToHome[name];
+        if(row !== rowTarget || col !== colTarget) return this.goToThePoint(turn, rowTarget, colTarget);
+
+        this.toInput = false;
+        this.eaten = true;
+        return this.type = 'goOutside';
     }
 
     lockedNextCoord() {
@@ -86,10 +102,10 @@ export default class Entries {
                 this.changeColor();
                 return this.type = 'fright';
             }
+
             return this.type = _configCanvas.game.currentGlobalType;
         }
         this.goToThePoint(turn, 14, 9);
-
     }
 
     proceedMotion() {
@@ -168,7 +184,8 @@ export default class Entries {
     }
 
     checkElementPermeability(element) {
-        return element === '@' || element === 'E' || element === '#' || (this.type === 'goOutside' && element === '┅');
+        return element === '@' || element === 'E' || element === '#' || 
+        ((this.type === 'goOutside' || this.type === 'goToHome') && element === '┅');
     }
 
     filtrCurrentPlane(turn, pos, verifiable) {
