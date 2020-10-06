@@ -160,7 +160,7 @@ export default class Pacman {
     }
 
     ifEatElem() {
-        let { gameMap, mapCoord:[ row, col],  } = this;
+        let { gameMap, actualSituation:[ row, col] } = this;
         let el = gameMap[row][col];
         if (el === 'E') return this.eatEnergyzer(row, col);
         if(el === '@') return this.eatFood(row, col);
