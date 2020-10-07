@@ -180,7 +180,7 @@ export default class Pacman {
         _configCanvas.game.fright = true;
         for (let entrie of Object.values(this.entries)) {
             if(entrie.name == 'pac man' || entrie.isLocked || entrie.type === 'goOutside') continue;
-            entrie.type = 'fright';
+            entrie.setFright();
             entrie.changeColor();
         }
         let ft = _configCanvas.timeId.frightTimer;

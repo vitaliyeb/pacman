@@ -36,7 +36,7 @@
                 },
             },
             frightTimer: {
-                period: [50000, 3000, 1000],
+                period: [5000, 3000, 1000],
                 timer: null,
             }
         },

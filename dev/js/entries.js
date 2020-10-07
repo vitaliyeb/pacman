@@ -102,7 +102,6 @@ export default class Entries {
                 return this.type = 'fright';
             }
             this.eaten = false;
-            console.log(_configCanvas.game.currentGlobalType);
             return this.type = _configCanvas.game.currentGlobalType;
         }
         this.goToThePoint(turn, 14, 9);
@@ -177,6 +176,14 @@ export default class Entries {
         return this.setNewParamsMove(turn[0].d, turn[0].nc, this.nexMapCoord)
     }
 
+    setFright() {
+        let { nexMapCoord, mapCoordiante, direction } = this;
+        this.type = 'fright';
+        this.nexMapCoord = mapCoordiante;
+        this.mapCoordiante = nexMapCoord;
+        this.direction =  direction.map(el => el * -1);
+    }
+
     setNewParamsMove(direction, nextCoord, currentCoord) {
         this.mapCoordiante = currentCoord;
         this.nexMapCoord = nextCoord;
@@ -205,7 +212,6 @@ export default class Entries {
        let { pacman : {actualSituation : [rowPac, colPac]} } = entities;
 
        if( rowGhost === rowPac && colGhost === colPac ){
-        console.log(type);
         if (type === 'fright' || type === 'goToHome'){
             _configCanvas.game.score += 200;
             clearInterval(_configCanvas.timeId.ghosts[this.name].fright);
