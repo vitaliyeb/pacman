@@ -85,7 +85,12 @@
             countPeriod: 0,
             level: 1,
             eaten: 0,
-            score: 0
+            _score: 0,
+            set score (score) {
+                this._score+= score;
+                ih.updateScore(this._score);
+            },
+            get score () { return this._score }
         }
     }
 })()

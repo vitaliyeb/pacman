@@ -2,12 +2,16 @@ import CreateMap from './map';
 import RenderMapElements from './mapElement';
 import Helper from './helper';
 import { ShadowGhost, PinkiGhost, InkiGhost, KlaydGhost } from './ghost';
+import Interface from "./interface";
+
 
 (() => {
     let canvasMap = document.getElementById('map');
     window.entities = {
         pacman: {}
     };
+
+    window.ih = new Interface();
     let canvasGame = document.getElementById('game');
     let mapContext = canvasMap.getContext('2d');
     let gameContext = canvasGame.getContext('2d');

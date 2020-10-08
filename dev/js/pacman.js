@@ -183,6 +183,7 @@ export default class Pacman {
             entrie.setFright();
             entrie.changeColor();
         }
+        _configCanvas.game.score = 50;
         let ft = _configCanvas.timeId.frightTimer;
         let level = _configCanvas.game.level;
         if(ft.timer) clearTimeout(ft.timer);
@@ -192,7 +193,7 @@ export default class Pacman {
     eatFood(row, col) {
         this.paintRect(row, col);
         _configCanvas.game.eaten++;
-        _configCanvas.game.score+=10;
+        _configCanvas.game.score = 10;
     }
 
     renderPacMan() {
