@@ -30,21 +30,32 @@ export default class Entries {
     }
 
     updateCoord( posCoord, nextMapCoord, steep ) {
-        let { speed, coordinate, direction } = this;
+        let { speed, coordinate, direction, goToMapOutside, mapOutsideX } = this;
         let currentCoord = coordinate[posCoord];
         let nexCoordInt = nextMapCoord * steep;
         let directionInt = direction[posCoord];
 
+        if (goToMapOutside) {
+            if(nexCoordInt != currentCoord){
+                this.paintGhost();
+            }else {
+                this.goToMapOutside = false;
+            }
+            return this.coordinate[posCoord] = currentCoord + speed * directionInt;
+        };
         if (nexCoordInt != currentCoord) return this.coordinate[posCoord] = currentCoord + speed * directionInt;
 
         this.setNextCoord(posCoord, nextMapCoord);
-
     }
 
     setNextCoord(posCoord, nextMapCoordInt) {
-        let { isLocked, type } = this;
+        let { isLocked, type, actualSituation:[row, col], xSteep } = this;
         if(isLocked) return this.lockedNextCoord();
-
+        if (this.map[row][col] === 'X') {
+            this.proceedMotion();
+            this.mapOutsideX = this.direction[1] > 0 ? -xSteep : xSteep + this.map[0].length * xSteep;
+            return this.goToMapOutside = true;
+        }
         let turn = this.ifTurn();
 
         let turnOtside = turn.filter(el=> el.nc[posCoord] === nextMapCoordInt);
