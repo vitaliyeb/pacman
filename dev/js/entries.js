@@ -42,7 +42,7 @@ export default class Entries {
     }
 
     setNextCoord(posCoord, nextMapCoordInt) {
-        let { isLocked } = this;
+        let { isLocked, type } = this;
         if(isLocked) return this.lockedNextCoord();
 
         let turn = this.ifTurn();
@@ -50,18 +50,7 @@ export default class Entries {
         let turnOtside = turn.filter(el=> el.nc[posCoord] === nextMapCoordInt);
         if (!turnOtside.length) return this.proceedMotion();
 
-        switch (this.type){
-            case 'chase':   
-                return this.chase(turn);
-            case 'diffusion':
-                return this.diffusion(turn);
-            case 'fright':
-                return this.fright(turn);
-            case 'goOutside':
-                return this.goOutside(turn);
-            case 'goToHome':
-                return this.goToHome(turn);   
-        }
+        this[type](turn);
     }
 
 
