@@ -39,15 +39,15 @@ export default class Entries {
             if(nexCoordInt != currentCoord){
                 this.mapOutsideX = mapOutsideX+=direction[1];
                 this.paintGhost(mapOutsideX);
+                return this.coordinate[posCoord] = currentCoord + speed * directionInt;
             }else {
-                let open = direction[posCoord] > 0 ? 0 : 29;
-                console.log(open)
+                let open = direction[posCoord] > 0 ? 0 : 27;
+                this.paintGhost(open * steep);
                 this.nexMapCoord = [14, open + direction[posCoord]];
                 this.mapCoordiante = [14, open];
                 this.coordinate[posCoord] = open * steep;
                 return this.goToMapOutside = false;
             }
-            return this.coordinate[posCoord] = currentCoord + speed * directionInt;
         };
         if (nexCoordInt != currentCoord) return this.coordinate[posCoord] = currentCoord + speed * directionInt;
 
@@ -59,7 +59,7 @@ export default class Entries {
         if(isLocked) return this.lockedNextCoord();
         if (this.map[row][col] === 'X') {
             this.proceedMotion();
-            this.mapOutsideX = this.direction[1] > 0 ? -xSteep : xSteep + this.map[0].length * xSteep;
+            this.mapOutsideX = this.direction[1] > 0 ? -xSteep : this.map[0].length * xSteep;
             return this.goToMapOutside = true;
         }
         let turn = this.ifTurn();
@@ -251,7 +251,8 @@ export default class Entries {
 
     paintGhost(xClone){
         let { contextGame, coordinate: [y, x], color, xSteep, ySteep, type } = this;
-        x = xClone ? xClone : x;
+        x = xClone !== undefined ? xClone : x;
+
         if (this.type !== 'goToHome'){
             contextGame.beginPath();
             contextGame.fillStyle = color;

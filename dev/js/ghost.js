@@ -9,7 +9,7 @@ class ShadowGhost extends  Entries {
         this.contextGame = contextGame;
         this.coordinate = [y, x];
         this.mapCoordiante = [ir, ic];
-        this.nexMapCoord = [ir, ic + 1];
+        this.nexMapCoord = [ir, ic - 1];
         this. isLocked = false,
         this.name = 'shadow',
         this.toInput = false;
@@ -21,7 +21,7 @@ class ShadowGhost extends  Entries {
         this.color = "#ff0000";
         this.originColor = "#ff0000";
         this.mapOutsideX = undefined;
-        this.direction = [ 0, 1]; //y, x
+        this.direction = [ 0, -1]; //y, x
         this.type = 'diffusion';
         this.changeType = false;
     }
