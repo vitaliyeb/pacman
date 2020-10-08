@@ -9,11 +9,10 @@ import { ShadowGhost, PinkiGhost, InkiGhost, KlaydGhost } from './ghost';
         pacman: {}
     };
     let canvasGame = document.getElementById('game');
-    let size = window.innerWidth >  window.innerHeight ? window.innerHeight - 15 : window.innerWidth - 15;
     let mapContext = canvasMap.getContext('2d');
     let gameContext = canvasGame.getContext('2d');
     let gameMap = CreateMap();
-    let helper = new Helper(size, gameMap);
+    let helper = new Helper(gameMap);
     let [xs, ys] =  helper.setSize(canvasMap, canvasGame);
     let renderMapElements = new RenderMapElements(xs, ys, mapContext, gameMap, gameContext, entities);
 
