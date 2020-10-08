@@ -37,9 +37,15 @@ export default class Entries {
 
         if (goToMapOutside) {
             if(nexCoordInt != currentCoord){
-                this.paintGhost();
+                this.mapOutsideX = mapOutsideX+=direction[1];
+                this.paintGhost(mapOutsideX);
             }else {
-                this.goToMapOutside = false;
+                let open = direction[posCoord] > 0 ? 0 : 29;
+                console.log(open)
+                this.nexMapCoord = [14, open + direction[posCoord]];
+                this.mapCoordiante = [14, open];
+                this.coordinate[posCoord] = open * steep;
+                return this.goToMapOutside = false;
             }
             return this.coordinate[posCoord] = currentCoord + speed * directionInt;
         };
@@ -243,9 +249,9 @@ export default class Entries {
         this.actualSituation[p[2]] = Math.floor(p[0] / p[1]) + (p[0] % p[1] > p[1] / 2 ? 1 : 0);
     }
 
-    paintGhost(){
+    paintGhost(xClone){
         let { contextGame, coordinate: [y, x], color, xSteep, ySteep, type } = this;
-
+        x = xClone ? xClone : x;
         if (this.type !== 'goToHome'){
             contextGame.beginPath();
             contextGame.fillStyle = color;
