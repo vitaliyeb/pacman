@@ -69,8 +69,8 @@ import Interface from "./interface";
     function loop() {
         let { pacman, shadow, pinki, inki, klayd } = entities;
         if (!_configCanvas.game.play) return;
-        pacman.renderPacMan();
-        shadow.render();
+        // pacman.renderPacMan();
+        // shadow.render();
         // pinki.render();
         // inki.render();
         // klayd.render();
