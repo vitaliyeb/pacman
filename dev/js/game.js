@@ -12,7 +12,7 @@ import Interface from "./interface";
     };
 
     window.resetLevel = function (){
-        console.log('res');
+        initGhost();
     }
 
     window.ih = new Interface();
@@ -73,11 +73,11 @@ import Interface from "./interface";
     function loop() {
         let { pacman, shadow, pinki, inki, klayd } = entities;
         if (!_configCanvas.game.play) return;
-        // pacman.renderPacMan();
+        pacman.renderPacMan();
         shadow.render();
-        // pinki.render();
-        // inki.render();
-        // klayd.render();
+        pinki.render();
+        inki.render();
+        klayd.render();
         requestAnimationFrame(loop);
     }
 
