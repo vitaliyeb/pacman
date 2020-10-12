@@ -218,14 +218,17 @@ export default class Entries {
        let { pacman : {actualSituation : [rowPac, colPac]} } = entities;
 
        if( rowGhost === rowPac && colGhost === colPac ){
-        if (type === 'fright' || type === 'goToHome'){
-            _configCanvas.game.score += 200;
-            clearInterval(_configCanvas.timeId.ghosts[this.name].fright);
-            this.eaten = true;
-            this.color = this.originColor;
-            return this.type = 'goToHome';
-       }
-       _configCanvas.game.play = false;
+            if (type === 'fright' || type === 'goToHome'){
+                _configCanvas.game.score += 200;
+                clearInterval(_configCanvas.timeId.ghosts[this.name].fright);
+                this.eaten = true;
+                this.color = this.originColor;
+                return this.type = 'goToHome';
+           }
+           let hp = --_configCanvas.game.hp;
+           ih.removeLife(hp);
+           if (!hp) return _configCanvas.game.play = false;
+           window.resetLevel();
        }
     }
 

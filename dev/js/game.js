@@ -11,6 +11,10 @@ import Interface from "./interface";
         pacman: {}
     };
 
+    window.resetLevel = function (){
+        console.log('res');
+    }
+
     window.ih = new Interface();
     let canvasGame = document.getElementById('game');
     let mapContext = canvasMap.getContext('2d');
@@ -70,7 +74,7 @@ import Interface from "./interface";
         let { pacman, shadow, pinki, inki, klayd } = entities;
         if (!_configCanvas.game.play) return;
         // pacman.renderPacMan();
-        // shadow.render();
+        shadow.render();
         // pinki.render();
         // inki.render();
         // klayd.render();
