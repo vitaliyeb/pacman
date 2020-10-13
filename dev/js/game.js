@@ -70,7 +70,7 @@ import Interface from "./interface";
         setTimeout(setTypeAllGhost, cto.time);
     }
 
-    function loop() {
+    function allRender() {
         let { pacman, shadow, pinki, inki, klayd } = entities;
         if (!_configCanvas.game.play) return;
         pacman.renderPacMan();
@@ -78,17 +78,28 @@ import Interface from "./interface";
         pinki.render();
         inki.render();
         klayd.render();
+    }
+
+    function loop() {
+        allRender();
         requestAnimationFrame(loop);
     }
 
     function beforeStart() {
-
+        let ready = document.querySelector('.ready');
+        allRender();
+        ready.classList.add('ready_active');
+        setTimeout(()=>{
+            ready.classList.remove('ready_active');
+            loop();
+        }, 1000);
     }
 
     function init() {
         renderMap();
         initGhost();
-        loop();
+        beforeStart();
+        // loop();
     }
 
     init();
