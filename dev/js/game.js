@@ -81,6 +81,10 @@ import Interface from "./interface";
         requestAnimationFrame(loop);
     }
 
+    function beforeStart() {
+
+    }
+
     function init() {
         renderMap();
         initGhost();

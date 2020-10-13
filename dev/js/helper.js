@@ -13,8 +13,12 @@ export default class Helper {
         let fullWs = ws * gm[0].length;
         let fullHs = hs * gm.length;
 
+        let interfaceHeight = fullHs + this.heightCut;
         interfaceEL.width = fullWs + 'px';
-        interfaceEL.height = fullHs + this.heightCut + 'px';
+        interfaceEL.height = interfaceHeight + 'px';
+        document.querySelector('.panel_middle').style.height = `${fullHs}px`;
+        interfaceEL.setProperty('--height-edge', `${(interfaceHeight - fullHs) / 2}px`);
+
         canvas.map(el => {
             el.width = fullWs;
             el.height = fullHs;

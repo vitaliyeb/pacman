@@ -14,6 +14,7 @@ body
         box-sizing: border-box
     #interface
         border: 1px solid #fff
+        display grid
 
 .score
 .level
@@ -27,18 +28,25 @@ body
     display inline-block
     text-transform uppercase
 
-.bottom-panel
-    position absolute
-    height 10%
-    bottom  0
-    width 100%
-    display flex
-    & > div
-        height 90%
-        width 50%
-        margin auto
+.panel
+    height var(--height-edge);
+    &_top
+        width 100%
+    &_middle
+        width 100%
+        background-color var(--heightMiddle)
+    &_bottom
+        bottom  0
+        width 100%
         display flex
-        justify-content space-between
+        & > div
+            height 90%
+            width 50%
+            margin auto
+            display flex
+            justify-content space-between
+
+
 
 
 
