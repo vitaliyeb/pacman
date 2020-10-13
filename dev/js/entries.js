@@ -228,7 +228,7 @@ export default class Entries {
            let hp = --_configCanvas.game.hp;
            ih.removeLife(hp);
            if (!hp) return _configCanvas.game.play = false;
-           window.resetLevel();
+           _configCanvas.game.restartLevel = true;
        }
     }
 

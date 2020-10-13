@@ -80,6 +80,8 @@
         },
         game: {
             play: true,
+            pause: true,
+            restartLevel: false,
             currentGlobalType: 'diffusion',
             fright: false,
             countPeriod: 0,

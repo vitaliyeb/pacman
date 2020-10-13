@@ -197,7 +197,6 @@ export default class Pacman {
     }
 
     renderPacMan() {
-        this.clearPacman();
         this.move();
         this.paintPac(this.x, this.y);
         this.calcFactualSituation();
@@ -219,10 +218,5 @@ export default class Pacman {
         c.moveTo(cx, yc);
         openMounth ? c.arc(cx, yc, r, angleOpenMounth + (aa * anglePacman), -angleOpenMounth + (aa * anglePacman)) : c.arc(cx, yc, r, 0, Math.PI * 2);
         c.fill();
-    }
-
-    clearPacman = () => {
-        let { c, x, y, xs, ys, r} = this;
-        c.clearRect(0, 0, 1000, 1000);
     }
 }

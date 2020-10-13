@@ -12,7 +12,7 @@ import Interface from "./interface";
     };
 
     window.resetLevel = function (){
-        initGhost();
+        beforeStart();
     }
 
     window.ih = new Interface();
@@ -71,8 +71,8 @@ import Interface from "./interface";
     }
 
     function allRender() {
+        gameContext.clearRect(0,0,1000,1000);
         let { pacman, shadow, pinki, inki, klayd } = entities;
-        if (!_configCanvas.game.play) return;
         pacman.renderPacMan();
         shadow.render();
         pinki.render();
@@ -81,25 +81,29 @@ import Interface from "./interface";
     }
 
     function loop() {
+        if (!_configCanvas.game.play || _configCanvas.game.pause) return;
         allRender();
+        if (_configCanvas.game.restartLevel) return beforeStart();
         requestAnimationFrame(loop);
     }
 
     function beforeStart() {
         let ready = document.querySelector('.ready');
+        initGhost();
         allRender();
+        _configCanvas.game.pause = true;
         ready.classList.add('ready_active');
         setTimeout(()=>{
             ready.classList.remove('ready_active');
+            _configCanvas.game.pause = false;
+            _configCanvas.game.restartLevel = false;
             loop();
         }, 1000);
     }
 
     function init() {
         renderMap();
-        initGhost();
         beforeStart();
-        // loop();
     }
 
     init();
