@@ -43,7 +43,7 @@
         },
         timeTable: [
             [
-                {type: 'diffusion', time: 7000},
+                {type: 'diffusion', time: 3000},
                 {type: 'chase', time: 20000},
                 {type: 'diffusion', time: 7000},
                 {type: 'chase', time: 20000},
