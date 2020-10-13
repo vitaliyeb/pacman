@@ -3,6 +3,7 @@ import RenderMapElements from './mapElement';
 import Helper from './helper';
 import { ShadowGhost, PinkiGhost, InkiGhost, KlaydGhost } from './ghost';
 import Interface from "./interface";
+import Pacman from "./pacman";
 
 
 (() => {
@@ -87,8 +88,15 @@ import Interface from "./interface";
         requestAnimationFrame(loop);
     }
 
+    function initPacman() {
+
+        let [row, col] = _configCanvas.pacmanPosition;
+        entities['pacman'] = new Pacman(gameContext, xs, ys, col * xs, row * ys, row, col, gameMap, mapContext, entities);
+    }
+
     function beforeStart() {
         let ready = document.querySelector('.ready');
+        initPacman();
         initGhost();
         allRender();
         _configCanvas.game.pause = true;

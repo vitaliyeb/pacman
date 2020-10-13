@@ -4,6 +4,7 @@
     window._configCanvas = {
         w: window.innerWidth,
         h: window.innerHeight,
+        pacmanPosition: [29, 13],
         ghostPosition: {
             shadow: [14, 9],
             pinki: [14, 12],
