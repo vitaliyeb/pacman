@@ -17,7 +17,9 @@ import Pacman from "./pacman";
     }
 
     window.levelUp = function (){
-        console.log('s')
+        ih.levelUp(++_configCanvas.game.level);
+        _configCanvas.game.restartLevel = true;
+        renderMap();
     }
 
     window.ih = new Interface();
@@ -39,7 +41,7 @@ import Pacman from "./pacman";
                 // mapContext.stroke();
 
                 // console.log(ir, ic);
-                
+                console.log('s');
                 mapContext.beginPath();
                 renderMapElements[col](xs * ic, ys * ir, ir, ic) 
                 mapContext.stroke();

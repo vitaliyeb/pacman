@@ -5,6 +5,7 @@ export default class Interface {
     constructor() {
         this.elWrapper = document.getElementById('interface');
         this.elScore = document.querySelector('.score > span');
+        this.level = document.querySelector('.level > span');
         this.allPacmanLife = document.querySelectorAll('.life > svg');
     }
 
@@ -17,6 +18,9 @@ export default class Interface {
         this.allPacmanLife[indx].style.opacity = 0;
     }
 
+    levelUp(leveNew) {
+        this.level.innerHTML = leveNew;
+    }
 
 
 }

@@ -168,7 +168,7 @@ export default class Pacman {
 
     addEatenCounter(addScore) {
         _configCanvas.game.score = addScore;
-        if (++_configCanvas.game.eaten >= _configCanvas.game.allEatElement) levelUp();
+        if (++_configCanvas.game.eaten >= 5) levelUp();
     }
 
     paintRect(row, col){
