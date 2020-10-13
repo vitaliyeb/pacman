@@ -86,6 +86,7 @@
             currentGlobalType: 'diffusion',
             fright: false,
             countPeriod: 0,
+            allEatElement: 0,
             hp: 3,
             level: 1,
             eaten: 0,

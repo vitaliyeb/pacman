@@ -166,6 +166,11 @@ export default class Pacman {
         if(el === '@') return this.eatFood(row, col);
     }
 
+    addEatenCounter(addScore) {
+        _configCanvas.game.score = addScore;
+        if (++_configCanvas.game.eaten >= _configCanvas.game.allEatElement) levelUp();
+    }
+
     paintRect(row, col){
         let { gameMap, contextMap: cm, xs, ys } = this;
         gameMap[row][col] = '#';
@@ -177,13 +182,13 @@ export default class Pacman {
 
     eatEnergyzer(row, col) {
         this.paintRect(row, col);
+        this.addEatenCounter(50);
         _configCanvas.game.fright = true;
         for (let entrie of Object.values(this.entries)) {
             if(entrie.name == 'pac man' || entrie.isLocked || entrie.type === 'goOutside') continue;
             entrie.setFright();
             entrie.changeColor();
         }
-        _configCanvas.game.score = 50;
         let ft = _configCanvas.timeId.frightTimer;
         let level = _configCanvas.game.level;
         if(ft.timer) clearTimeout(ft.timer);
@@ -192,8 +197,7 @@ export default class Pacman {
 
     eatFood(row, col) {
         this.paintRect(row, col);
-        _configCanvas.game.eaten++;
-        _configCanvas.game.score = 10;
+        this.addEatenCounter(10);
     }
 
     renderPacMan() {

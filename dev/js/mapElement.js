@@ -17,17 +17,19 @@ export default class RenderMapElements {
         this.eh = ys / 5;
         this.exhs = xs / 2 - this.ew / 2;
         this.eyhs = ys / 2 - this.eh / 2;
-        this.lineWidth = 4;
+        this.lineWidth = Math.floor(window.innerWidth / 300);
         this.colorLine = '#1b1bcd';
     }
 
     '@'(x, y, mr, mc) {
         let { c, ew, eh, exhs, eyhs, eatItem } = this;
+        _configCanvas.game.allEatElement++;
         c.fillStyle  = '#ffb8ae';
         c.fillRect(x + exhs, y + eyhs, ew, eh);
     }
     'E'(x, y) {
         let { c, cy, cx } = this;
+        _configCanvas.game.allEatElement++;
         c.fillStyle = 'ffb8ae';
         c.arc(x + cx, y + cy, cy < cx ? cy : cx, 0, Math.PI * 2);
         c.fill();

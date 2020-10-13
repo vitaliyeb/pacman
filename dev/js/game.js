@@ -16,6 +16,10 @@ import Pacman from "./pacman";
         beforeStart();
     }
 
+    window.levelUp = function (){
+        console.log('s')
+    }
+
     window.ih = new Interface();
     let canvasGame = document.getElementById('game');
     let mapContext = canvasMap.getContext('2d');
@@ -95,6 +99,7 @@ import Pacman from "./pacman";
     }
 
     function beforeStart() {
+        console.log(_configCanvas.game.allEatElement);
         let ready = document.querySelector('.ready');
         initPacman();
         initGhost();
@@ -106,7 +111,7 @@ import Pacman from "./pacman";
             _configCanvas.game.pause = false;
             _configCanvas.game.restartLevel = false;
             loop();
-        }, 1000);
+        }, 1500);
     }
 
     function init() {
