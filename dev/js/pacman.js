@@ -168,7 +168,7 @@ export default class Pacman {
 
     addEatenCounter(addScore) {
         _configCanvas.game.score = addScore;
-        if (++_configCanvas.game.eaten >= 5) levelUp();
+        if (++_configCanvas.game.eaten >= _configCanvas.game.allEatElement) levelUp();
     }
 
     paintRect(row, col){
@@ -198,6 +198,7 @@ export default class Pacman {
     eatFood(row, col) {
         this.paintRect(row, col);
         this.addEatenCounter(10);
+        if (!(_configCanvas.timeId.eaten % 2)) createFrutis();
     }
 
     renderPacMan() {

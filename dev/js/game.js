@@ -14,7 +14,7 @@ import Pacman from "./pacman";
 
     window.resetLevel = function (){
         beforeStart();
-    }
+    };
 
     window.levelUp = function (){
         ih.levelUp(++_configCanvas.game.level);
@@ -23,7 +23,13 @@ import Pacman from "./pacman";
         _configCanvas.game.eaten = 0;
         gameMap = CreateMap();
         renderMap();
-    }
+    };
+
+    window.createFrutis = function() {
+        gameContext.beginPath();
+        gameContext.fillStyle = 'red';
+        gameContext.fillRect(xs*18, ys*14, xs, ys);
+    };
 
     window.ih = new Interface();
     let canvasGame = document.getElementById('game');
