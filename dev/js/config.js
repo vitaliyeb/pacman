@@ -18,6 +18,7 @@
             klayd: [14, 16],
         },
         timeId : {
+            globalTypeTimer: null,
             ghosts: {
                 shadow: {
                     goOutsideHomeGhosts: null,

@@ -19,6 +19,7 @@ import Pacman from "./pacman";
     window.levelUp = function (){
         ih.levelUp(++_configCanvas.game.level);
         _configCanvas.game.restartLevel = true;
+        _configCanvas.game.allEatElement = 0;
         _configCanvas.game.eaten = 0;
         gameMap = CreateMap();
         renderMap();
@@ -66,8 +67,10 @@ import Pacman from "./pacman";
     }
 
     function setTypeAllGhost() {
+        clearTimeout(_configCanvas.timeId.globalTypeTimer);
         let level = _configCanvas.game.level;
         let cto = _configCanvas.timeTable[level === 1 ? 0 : level >= 5 ? 2 : 1][_configCanvas.game.countPeriod++];
+        if (!cto) return;
         for (let item of Object.values(entities)) {
             let it = item.type;
             if(it === 'pac man' || it === 'goOutside' || it === 'fright' || it === 'goToHome') continue;
@@ -75,7 +78,7 @@ import Pacman from "./pacman";
         }
         _configCanvas.game.currentGlobalType = cto.type;
         if(!cto.time) return;
-        setTimeout(setTypeAllGhost, cto.time);
+        _configCanvas.timeId.globalTypeTimer = setTimeout(setTypeAllGhost, cto.time);
     }
 
     function allRender() {
@@ -102,7 +105,6 @@ import Pacman from "./pacman";
     }
 
     function beforeStart() {
-        console.log(_configCanvas.game.allEatElement);
         let ready = document.querySelector('.ready');
         initPacman();
         initGhost();
