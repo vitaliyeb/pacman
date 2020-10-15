@@ -26,9 +26,37 @@ import Pacman from "./pacman";
     };
 
     window.createFrutis = function() {
-        gameContext.beginPath();
-        gameContext.fillStyle = 'red';
-        gameContext.fillRect(xs*18, ys*14, xs, ys);
+        let mc = mapContext,
+            row = 14,
+            col = 18,
+            x = xs * col,
+            y = ys * row,
+            xdf = xs / 4,
+            ydf =  ys / 4,
+            minRadCherry = Math.min(xdf, ydf);
+
+        mc.beginPath();
+        mc.fillStyle = '#000';
+        mc.fillRect(x, y, xs, ys);
+        [-1, 0.3].map((i, ind)=>{
+            mc.beginPath();
+            mc.fillStyle = 'red';
+            mc.strokeStyle = '#000';
+            mc.lineWidth = 1;
+            let xm = x + xs / 2 +  xdf * i,
+                ym = y + ys - ydf;
+            mc.arc(xm, ym, minRadCherry, 0, Math.PI * 2);
+            mc.fill();
+            mc.stroke();
+            mc.beginPath();
+            mc.strokeStyle = '#7b592c';
+            mc.lineWidth = 2;
+            mc.moveTo(xm, ym - ydf / 3);
+            mc.lineTo(x + xs / 2, y + ydf );
+            if(ind === 1) mc.lineTo(x + xs / 1.5, y + ys / 6);
+            mc.stroke();
+        })
+        mc.beginPath();
     };
 
     window.ih = new Interface();
@@ -49,7 +77,7 @@ import Pacman from "./pacman";
                 // mapContext.rect(xs * ic, ys * ir, xs, ys);
                 // mapContext.stroke();
 
-                // console.log(ir, ic);
+                console.log(ir, ic);
                 mapContext.beginPath();
                 renderMapElements[col](xs * ic, ys * ir, ir, ic) 
                 mapContext.stroke();
