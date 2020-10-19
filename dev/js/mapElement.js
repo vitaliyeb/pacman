@@ -17,7 +17,7 @@ export default class RenderMapElements {
         this.eh = ys / 5;
         this.exhs = xs / 2 - this.ew / 2;
         this.eyhs = ys / 2 - this.eh / 2;
-        this.lineWidth = Math.floor(window.innerWidth / 300);
+        this.lineWidth = Math.floor(Math.min(window.innerWidth, window.innerHeight) / 300);
         this.colorLine = '#1b1bcd';
     }
 
