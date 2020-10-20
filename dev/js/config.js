@@ -19,6 +19,7 @@
         },
         timeId : {
             globalTypeTimer: null,
+            fructTime: null,
             ghosts: {
                 shadow: {
                     goOutsideHomeGhosts: null,
@@ -86,6 +87,7 @@
             restartLevel: false,
             currentGlobalType: 'diffusion',
             fright: false,
+            frutisEaten: false,
             countPeriod: 0,
             allEatElement: 0,
             hp: 3,

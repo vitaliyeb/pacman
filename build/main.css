@@ -2,15 +2,68 @@ body {
   margin: 0;
   padding: 0;
   height: 100vh;
+  color: #fff;
   overflow: hidden;
   background-color: #000;
 }
-body canvas {
+body canvas,
+body #interface {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  border: 1px solid #fff;
   box-sizing: border-box;
+}
+body #interface {
+  border: 1px solid #fff;
+  display: grid;
+}
+.score,
+.level {
+  font-size: clamp(18px, 3vw, 28px);
+  letter-spacing: 2px;
+  font-family: 'Inconsolata', monospace;
+  width: 50%;
+  margin: 5px 0;
+  padding-left: clamp(15px, 8%, 25px);
+  box-sizing: border-box;
+  display: inline-block;
+  text-transform: uppercase;
+}
+.panel {
+  height: var(--height-edge);
+}
+.panel_top {
+  width: 100%;
+}
+.panel_middle {
+  width: 100%;
+  background-color: var(--heightMiddle);
+  display: flex;
+}
+.panel_bottom {
+  bottom: 0;
+  width: 100%;
+  display: flex;
+}
+.panel_bottom > div {
+  height: 90%;
+  width: 50%;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+}
+.ready {
+  opacity: 0;
+  margin: auto;
+  font-size: clamp(18px, 3vw, 36px);
+  font-family: cursive;
+  font-weight: bold;
+  background-color: rgba(0,0,0,0.58);
+  color: #fbff00;
+  transform: translateY(var(--readyY));
+}
+.ready_active {
+  opacity: 1;
 }
 

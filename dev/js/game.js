@@ -35,6 +35,9 @@ import Pacman from "./pacman";
             ydf =  ys / 4,
             minRadCherry = Math.min(xdf, ydf);
 
+        if (gameMap[row][col] === '@') _configCanvas.game.frutisEaten = true;
+        gameMap[row][col] = 'F';
+
         mc.beginPath();
         mc.fillStyle = '#000';
         mc.fillRect(x, y, xs, ys);
@@ -57,6 +60,18 @@ import Pacman from "./pacman";
             mc.stroke();
         })
         mc.beginPath();
+        _configCanvas.timeId.fructTime = setTimeout(
+            ()=>{
+                if (_configCanvas.game.frutisEaten){
+                    gameMap[row][col] = '@';
+
+                }else {
+                    gameMap[row][col] = '#';
+
+                }
+                _configCanvas.game.frutisEaten = false;
+            },9500
+        );
     };
 
     window.ih = new Interface();

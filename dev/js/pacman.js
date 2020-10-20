@@ -126,7 +126,7 @@ export default class Pacman {
     checkPassage(row, collumn) {
         let { gameMap } = this;
         let checkElem = gameMap[row][collumn];
-        if( checkElem === '@' || checkElem === 'P' || checkElem === '#' || checkElem === 'E' || checkElem === 'X' ) return true;
+        if( checkElem === '@' || checkElem === 'P' || checkElem === '#' || checkElem === 'E' || checkElem === 'X' || checkElem === 'F' ) return true;
         return false;
     }
 
