@@ -26,6 +26,7 @@ import Pacman from "./pacman";
     };
 
     window.createFrutis = function() {
+        clearTimeout(_configCanvas.timeId.fructTime);
         let mc = mapContext,
             row = 29, //14
             col = 18, //18
@@ -34,7 +35,6 @@ import Pacman from "./pacman";
             xdf = xs / 4,
             ydf =  ys / 4,
             minRadCherry = Math.min(xdf, ydf);
-
         if (gameMap[row][col] === '@') _configCanvas.game.frutisEaten = true;
         gameMap[row][col] = 'F';
 
@@ -71,8 +71,7 @@ import Pacman from "./pacman";
                 }else {
                     gameMap[row][col] = '#';
                 }
-                _configCanvas.game.frutisEaten = false;
-            },2000
+            },5000
         );
     };
 
@@ -135,10 +134,10 @@ import Pacman from "./pacman";
         gameContext.clearRect(0,0,1000,1000);
         let { pacman, shadow, pinki, inki, klayd } = entities;
         pacman.renderPacMan();
-        shadow.render();
-        pinki.render();
-        inki.render();
-        klayd.render();
+        // shadow.render();
+        // pinki.render();
+        // inki.render();
+        // klayd.render();
     }
 
     function loop() {

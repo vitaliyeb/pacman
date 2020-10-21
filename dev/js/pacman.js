@@ -172,7 +172,23 @@ export default class Pacman {
         if (++_configCanvas.game.eaten >= _configCanvas.game.allEatElement) levelUp();
     }
 
-    paintRect(row, col){
+    eatFood(row, col, score = 10) {
+        this.paintRect(row, col);
+        this.addEatenCounter(score);
+        if (!(_configCanvas.game.eaten % 4) && _configCanvas.game.eaten > 0) createFrutis();
+    }
+
+    eatFruct(row, col){
+        clearTimeout(_configCanvas.timeId.fructTime);
+        if(_configCanvas.game.frutisEaten) {
+            _configCanvas.game.frutisEaten = false;
+            return this.eatFood(row, col, 200);
+        }
+        this.paintRect(row, col);
+        this.addEatenCounter(200);
+    }
+
+        paintRect(row, col){
         let { gameMap, contextMap: cm, xs, ys } = this;
         gameMap[row][col] = '#';
         cm.beginPath();
@@ -196,17 +212,6 @@ export default class Pacman {
         ft.timer = setTimeout(()=>_configCanvas.game.fright = false, level === 1 ? ft.period[0] : level >= 5 ?  ft.period[2] :  ft.period[1]);
     }
 
-    eatFood(row, col, score = 10) {
-        this.paintRect(row, col);
-        this.addEatenCounter(score);
-        if (!(_configCanvas.game.eaten % 2) && _configCanvas.game.eaten > 0) createFrutis();
-    }
-
-    eatFruct(row, col){
-        let { gameMap } = this;
-        if(_configCanvas.game.frutisEaten) return this.eatFood(row, col, 200);
-        _configCanvas.game.frutisEaten = false;
-    }
 
     renderPacMan() {
         this.move();
