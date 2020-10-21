@@ -27,8 +27,8 @@ import Pacman from "./pacman";
 
     window.createFrutis = function() {
         let mc = mapContext,
-            row = 14,
-            col = 18,
+            row = 29, //14
+            col = 18, //18
             x = xs * col,
             y = ys * row,
             xdf = xs / 4,
@@ -62,15 +62,17 @@ import Pacman from "./pacman";
         mc.beginPath();
         _configCanvas.timeId.fructTime = setTimeout(
             ()=>{
+                mapContext.beginPath();
+                renderMapElements['O'](xs * col, ys * row);
                 if (_configCanvas.game.frutisEaten){
                     gameMap[row][col] = '@';
-
+                    mapContext.beginPath();
+                    renderMapElements['@'](xs * col, ys * row, row, col)
                 }else {
                     gameMap[row][col] = '#';
-
                 }
                 _configCanvas.game.frutisEaten = false;
-            },9500
+            },2000
         );
     };
 

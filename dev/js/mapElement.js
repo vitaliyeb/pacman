@@ -36,6 +36,12 @@ export default class RenderMapElements {
         c.beginPath();
     }
 
+    'O'(x, y) {
+        let { c , xs, ys } = this;
+        c.fillStyle = '#000';
+        c.fillRect(x, y, xs, ys);
+    }
+
     '#'() {
         return;
     }

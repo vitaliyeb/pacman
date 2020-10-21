@@ -164,6 +164,7 @@ export default class Pacman {
         let el = gameMap[row][col];
         if (el === 'E') return this.eatEnergyzer(row, col);
         if(el === '@') return this.eatFood(row, col);
+        if(el === 'F') return this.eatFruct(row, col);
     }
 
     addEatenCounter(addScore) {
@@ -195,10 +196,16 @@ export default class Pacman {
         ft.timer = setTimeout(()=>_configCanvas.game.fright = false, level === 1 ? ft.period[0] : level >= 5 ?  ft.period[2] :  ft.period[1]);
     }
 
-    eatFood(row, col) {
+    eatFood(row, col, score = 10) {
         this.paintRect(row, col);
-        this.addEatenCounter(10);
+        this.addEatenCounter(score);
         if (!(_configCanvas.game.eaten % 2) && _configCanvas.game.eaten > 0) createFrutis();
+    }
+
+    eatFruct(row, col){
+        let { gameMap } = this;
+        if(_configCanvas.game.frutisEaten) return this.eatFood(row, col, 200);
+        _configCanvas.game.frutisEaten = false;
     }
 
     renderPacMan() {
