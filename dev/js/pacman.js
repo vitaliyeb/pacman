@@ -179,6 +179,7 @@ export default class Pacman {
     }
 
     eatFruct(row, col){
+        ih.removeFruct(--_configCanvas.game.fructs);
         clearTimeout(_configCanvas.timeId.fructTime);
         if(_configCanvas.game.frutisEaten) {
             _configCanvas.game.frutisEaten = false;

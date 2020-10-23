@@ -88,6 +88,7 @@
             currentGlobalType: 'diffusion',
             fright: false,
             frutisEaten: false,
+            fructs: 3,
             countPeriod: 0,
             allEatElement: 0,
             hp: 3,

@@ -7,6 +7,7 @@ export default class Interface {
         this.elScore = document.querySelector('.score > span');
         this.level = document.querySelector('.level > span');
         this.allPacmanLife = document.querySelectorAll('.life > svg');
+        this.allFruct = document.querySelectorAll('.fructs > svg');
     }
 
     updateScore(score) {
@@ -22,5 +23,9 @@ export default class Interface {
         this.level.innerHTML = leveNew;
     }
 
+    removeFruct(indx) {
+        this.allFruct[indx].style.opacity = 0;
+        console.log('s')
+    }
 
 }
