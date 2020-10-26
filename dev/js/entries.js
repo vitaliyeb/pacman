@@ -220,7 +220,7 @@ export default class Entries {
        if( rowGhost === rowPac && colGhost === colPac ){
             if( type === 'goToHome' ) return;
             if (type === 'fright'){
-                _configCanvas.game.score += 200;
+                _configCanvas.game.score = 200;
                 clearInterval(_configCanvas.timeId.ghosts[this.name].fright);
                 this.eaten = true;
                 this.color = this.originColor;
