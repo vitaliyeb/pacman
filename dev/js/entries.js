@@ -218,7 +218,8 @@ export default class Entries {
        let { pacman : {actualSituation : [rowPac, colPac]} } = entities;
 
        if( rowGhost === rowPac && colGhost === colPac ){
-            if (type === 'fright' || type === 'goToHome'){
+            if( type === 'goToHome' ) return;
+            if (type === 'fright'){
                 _configCanvas.game.score += 200;
                 clearInterval(_configCanvas.timeId.ghosts[this.name].fright);
                 this.eaten = true;

@@ -175,7 +175,7 @@ export default class Pacman {
     eatFood(row, col, score = 10) {
         this.paintRect(row, col);
         this.addEatenCounter(score);
-        if (!(_configCanvas.game.eaten % 4) && _configCanvas.game.eaten > 0) createFrutis();
+        if (!(_configCanvas.game.eaten % 75) && _configCanvas.game.eaten > 0) createFrutis();
     }
 
     eatFruct(row, col){

@@ -96,6 +96,7 @@
             eaten: 0,
             _score: 0,
             set score (score) {
+                console.log(score);
                 this._score+= score;
                 ih.updateScore(this._score);
             },

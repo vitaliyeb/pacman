@@ -28,7 +28,7 @@ import Pacman from "./pacman";
     window.createFrutis = function() {
         clearTimeout(_configCanvas.timeId.fructTime);
         let mc = mapContext,
-            row = 29, //14
+            row = 14, //14
             col = 18, //18
             x = xs * col,
             y = ys * row,
@@ -134,10 +134,10 @@ import Pacman from "./pacman";
         gameContext.clearRect(0,0,1000,1000);
         let { pacman, shadow, pinki, inki, klayd } = entities;
         pacman.renderPacMan();
-        // shadow.render();
-        // pinki.render();
-        // inki.render();
-        // klayd.render();
+        shadow.render();
+        pinki.render();
+        inki.render();
+        klayd.render();
     }
 
     function loop() {
